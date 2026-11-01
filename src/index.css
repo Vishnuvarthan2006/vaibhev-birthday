@@ -122,6 +122,110 @@ body {
   pointer-events: none;
 }
 
+/* =========================================================================
+   F1 GANTRY LIGHTS & RACING ANIMATIONS
+   ========================================================================= */
+
+.gantry-pod {
+  background: radial-gradient(circle at 35% 35%, #23232c, #0d0d12 80%);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.gantry-light-off {
+  background: radial-gradient(circle at 35% 35%, #2a1416 0%, #150608 75%);
+  border: 1px solid rgba(239, 26, 45, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.gantry-light-on {
+  background: radial-gradient(circle at 40% 40%, #ff6b78 0%, #ef1a2d 45%, #b3000f 100%);
+  border: 1px solid #ff7b88;
+  box-shadow: 
+    0 0 16px #ef1a2d,
+    0 0 35px rgba(239, 26, 45, 0.75),
+    inset 0 0 8px rgba(255, 255, 255, 0.6);
+  animation: f1Pulse 1.2s infinite alternate;
+}
+
+@keyframes f1Pulse {
+  0% {
+    box-shadow: 0 0 14px #ef1a2d, 0 0 28px rgba(239, 26, 45, 0.65);
+  }
+  100% {
+    box-shadow: 0 0 22px #ff4b5b, 0 0 44px rgba(239, 26, 45, 0.95);
+  }
+}
+
+/* Ferrari light streak across screen */
+.ferrari-light-streak {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(239, 26, 45, 0.1) 20%,
+    rgba(239, 26, 45, 0.9) 50%,
+    rgba(212, 175, 55, 0.9) 70%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+  animation: streakSlide 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes streakSlide {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+}
+
+/* Subtle Shimmer for Gold Accents */
+@keyframes goldShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    #d4af37 0%,
+    #fff8e1 40%,
+    #d4af37 60%,
+    #b89327 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 6s linear infinite;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
 /* Custom Luxury Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
