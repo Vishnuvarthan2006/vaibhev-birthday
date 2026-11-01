@@ -4,6 +4,7 @@ import { Navbar, type AppView } from './components/layout/Navbar';
 import { CinematicLanding } from './components/landing/CinematicLanding';
 import { PaddockDashboard } from './components/paddock/PaddockDashboard';
 import { SectionPlaceholder } from './components/layout/SectionPlaceholder';
+import { NotebookViewer } from './components/notebook/NotebookViewer';
 
 export const App: React.FC = () => {
   // Current view state: 'landing' initially for the F1 start experience
@@ -47,8 +48,11 @@ export const App: React.FC = () => {
           />
         )}
 
-        {(currentView === 'notebook' ||
-          currentView === 'gallery' ||
+        {currentView === 'notebook' && (
+          <NotebookViewer onReturnToPaddock={() => setCurrentView('paddock')} />
+        )}
+
+        {(currentView === 'gallery' ||
           currentView === 'vault' ||
           currentView === 'easter-eggs') && (
           <SectionPlaceholder
@@ -58,6 +62,7 @@ export const App: React.FC = () => {
           />
         )}
       </main>
+
 
       {/* Subtle Paddock Footer (visible across all views) */}
       <footer className="relative z-10 border-t border-white/[0.06] bg-obsidian-950/80 px-6 py-4 text-center">

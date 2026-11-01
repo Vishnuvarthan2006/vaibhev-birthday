@@ -112,11 +112,6 @@ class F1AudioController {
     try {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(1200, ctx.currentTime);
-      gain.gain.setValueAtTime(0.08, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
-
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
@@ -125,6 +120,48 @@ class F1AudioController {
       // Silently ignore
     }
   }
+
+  /**
+   * Gentle realistic paper page-turn whisper sound
+   */
+  public playPageTurn() {
+    if (this.isMuted) return;
+
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      // Create a short buffer of noise for paper friction
+      const bufferSize = ctx.sampleRate * 0.12; // 120ms
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
+      }
+
+      const whiteNoise = ctx.createBufferSource();
+      whiteNoise.buffer = buffer;
+
+      // Bandpass filter to simulate crisp paper texture
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1800, ctx.currentTime);
+      filter.Q.setValueAtTime(1.8, ctx.currentTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.09, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.11);
+
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      whiteNoise.start();
+    } catch {
+      // Graceful fallback
+    }
+  }
 }
 
 export const soundFx = new F1AudioController();
+

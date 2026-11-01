@@ -31,6 +31,12 @@ export interface NotebookEntry {
   friendName: string;
 
   /**
+   * Personal heading or chapter title for this friend.
+   * e.g., 'Chapter I: The Apex of Friendship', 'The Pit Wall Confessions'
+   */
+  chapterTitle?: string;
+
+  /**
    * Optional nickname or F1 / Marvel / gaming callsign.
    * e.g., 'Pit Wall Strategist', 'Miles Morales', 'Diamond Miner'
    */
@@ -43,9 +49,16 @@ export interface NotebookEntry {
 
   /**
    * The primary written message from this friend.
-   * Supports multi-paragraph text or markdown format.
+   * Supports multi-paragraph text.
    */
   writtenMessage: string;
+
+  /**
+   * Optional short closing note, signoff, or signature.
+   * e.g., 'Always in your corner, — Alex', 'Keep pushing, — Driver #44'
+   */
+  closingNote?: string;
+
 
   /**
    * Array of photographs attached to this friend's notebook page.
