@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+@theme {
+  /* =========================================================================
+     CORE PALETTE: LUXURY AUTOMOTIVE / SCUDERIA BLACK & GOLD
+     ========================================================================= */
+
+  /* Obsidian & Carbon Dark Spectrum */
+  --color-obsidian-950: #060608;
+  --color-obsidian-900: #0b0b0e;
+  --color-obsidian-850: #101015;
+  --color-obsidian-800: #16161d;
+  --color-obsidian-700: #22222b;
+  --color-carbon-border: #282834;
+  --color-carbon-card: #0f0f13;
+
+  /* Metallic Gold Spectrum */
+  --color-gold-100: #fbf7eb;
+  --color-gold-200: #f4e8c1;
+  --color-gold-300: #e7cf88;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #b89327;
+  --color-gold-600: #93711d;
+
+  /* Ferrari Scuderia Racing Red */
+  --color-ferrari-400: #ff3b4b;
+  --color-ferrari-500: #ef1a2d;
+  --color-ferrari-600: #cc1021;
+  --color-ferrari-700: #930612;
+
+  /* Typography Families */
+  --font-display: 'Cinzel', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base resets & typography */
+:root {
+  color-scheme: dark;
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-obsidian-950);
+  color: #ededf0;
+  overflow-x: hidden;
+}
+
+/* =========================================================================
+   CINEMATIC & LUXURY STYLING TOKENS
+   ========================================================================= */
+
+/* Metallic Gold Gradient Text */
+.gold-text-gradient {
+  background: linear-gradient(
+    135deg,
+    #fff8e1 0%,
+    #dfc472 25%,
+    #d4af37 50%,
+    #b89327 75%,
+    #f3e5ab 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Ferrari Red Gradient Text */
+.ferrari-text-gradient {
+  background: linear-gradient(135deg, #ff4c5b 0%, #ef1a2d 50%, #b80918 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hairline Metallic Borders */
+.gold-border {
+  border: 1px solid rgba(212, 175, 55, 0.28);
+}
+
+.gold-border-glow {
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 0 20px -5px rgba(212, 175, 55, 0.15);
+}
+
+.ferrari-border {
+  border: 1px solid rgba(239, 26, 45, 0.35);
+}
+
+.ferrari-border-glow {
+  border: 1px solid rgba(239, 26, 45, 0.6);
+  box-shadow: 0 0 24px -4px rgba(239, 26, 45, 0.25);
+}
+
+/* Carbon Fiber Luxury Panel Card */
+.carbon-panel {
+  background: linear-gradient(
+    145deg,
+    rgba(22, 22, 29, 0.75) 0%,
+    rgba(13, 13, 17, 0.85) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Subtle Racing Telemetry Carbon Pattern */
+.telemetry-grid {
+  background-image: 
+    linear-gradient(to right, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Subtle Cinematic Radial Vignette */
+.cinematic-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(6, 6, 8, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+/* Custom Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060608;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #23232c;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
