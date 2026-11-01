@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, ZoomIn, Calendar, User, Tag } from 'lucide-react';
+import { Camera, ZoomIn, Calendar, User } from 'lucide-react';
 import type { GalleryPhoto } from '../../types/gallery';
 import { soundFx } from '../../utils/audioFx';
 
@@ -41,7 +41,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
           onClick();
         }
       }}
-      className="group relative cursor-pointer overflow-hidden rounded-md border border-white/[0.08] bg-obsidian-900/90 transition-all duration-300 hover:border-gold-500/50 hover:shadow-[0_8px_30px_rgba(212,175,55,0.15)] focus:outline-hidden focus:ring-2 focus:ring-gold-400 select-none break-inside-avoid mb-4 sm:mb-6"
+      className="group relative cursor-pointer overflow-hidden rounded-md border border-white/[0.12] bg-gradient-to-b from-[#19171d] via-[#141217] to-[#0f0e12] transition-all duration-300 hover:border-gold-500/50 hover:shadow-[0_8px_30px_rgba(212,175,55,0.18)] focus:outline-hidden focus:ring-2 focus:ring-gold-400 select-none break-inside-avoid mb-4 sm:mb-6"
     >
       {/* Corner Accent (Ferrari Red on top left) */}
       <div className="absolute top-0 left-0 w-8 h-8 pointer-events-none z-10 overflow-hidden">
@@ -62,7 +62,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
           /* Fallback Placeholder Card */
           <div className="w-full h-full p-4 sm:p-6 bg-gradient-to-br from-[#1a1714] via-[#0d0c0a] to-[#070605] flex flex-col justify-between items-center text-center">
             <div className="w-full flex justify-between items-center text-[10px] font-mono text-gray-400">
-              <span className="text-red-400 font-bold uppercase">#44</span>
+              <span className="text-red-400 font-bold uppercase">FERRARI</span>
               <span>{photo.aspectRatio?.toUpperCase() || 'FRAME'}</span>
             </div>
 
@@ -88,37 +88,37 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-3.5 sm:p-4 z-10">
           {/* Top badges */}
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-black/70 border border-gold-500/40 text-gold-300 backdrop-blur-xs flex items-center gap-1">
-              <Tag className="w-2.5 h-2.5" />
-              {photo.category.replace('-', ' ')}
+            <span className="font-mono text-xs uppercase tracking-wider px-2.5 py-1 rounded-md bg-black/80 border border-gold-500/40 text-gold-300 backdrop-blur-xs flex items-center gap-1.5 font-bold">
+              <Camera className="w-3 h-3" />
+              {photo.dateOrEvent || 'ARCHIVE'}
             </span>
 
-            <div className="w-7 h-7 rounded-full bg-gold-500/20 border border-gold-400/60 flex items-center justify-center text-gold-300 shadow-md">
-              <ZoomIn className="w-3.5 h-3.5" />
+            <div className="w-8 h-8 rounded-full bg-gold-500/20 border border-gold-400/60 flex items-center justify-center text-gold-300 shadow-md">
+              <ZoomIn className="w-4 h-4" />
             </div>
           </div>
 
           {/* Bottom Caption & Contributor */}
           <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-            <h3 className="font-display text-sm sm:text-base font-bold text-white leading-tight">
+            <h3 className="font-display text-base sm:text-lg font-bold text-white leading-tight">
               {photo.title}
             </h3>
             {photo.description && (
-              <p className="text-[11px] text-gray-300 line-clamp-2 mt-1">
+              <p className="text-xs sm:text-sm text-gray-300 line-clamp-2 mt-1">
                 {photo.description}
               </p>
             )}
 
-            <div className="flex items-center gap-3 mt-2 font-mono text-[10px] text-gray-400">
+            <div className="flex items-center gap-3.5 mt-2 font-mono text-xs text-gray-400">
               {photo.contributor && (
-                <span className="flex items-center gap-1 text-gold-400/90 truncate">
-                  <User className="w-3 h-3 text-gold-400" />
+                <span className="flex items-center gap-1.5 text-gold-400/90 truncate font-semibold">
+                  <User className="w-3.5 h-3.5 text-gold-400" />
                   {photo.contributor}
                 </span>
               )}
               {photo.dateOrEvent && (
-                <span className="flex items-center gap-1 truncate">
-                  <Calendar className="w-3 h-3" />
+                <span className="flex items-center gap-1.5 truncate">
+                  <Calendar className="w-3.5 h-3.5" />
                   {photo.dateOrEvent}
                 </span>
               )}

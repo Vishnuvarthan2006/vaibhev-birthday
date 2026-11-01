@@ -116,7 +116,7 @@ export const App: React.FC = () => {
       {/* Subtle Paddock Footer (visible across all views) */}
       <footer className="relative z-10 border-t border-white/[0.06] bg-obsidian-950/80 px-6 py-4 text-center">
         <p className="text-xs font-mono text-gray-400">
-          Scuderia 9-Squad Syndicate • Maranello Telemetry • Crafted with precision for Vaibhev #44
+          Scuderia 9-Squad Syndicate • Maranello Telemetry • Crafted with precision for Vaibhev
         </p>
       </footer>
     </div>

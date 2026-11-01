@@ -1,4 +1,5 @@
 import type { VideoCategoryMeta, VideoEntry } from '../types/video';
+import { getSessionShuffled } from '../utils/shuffle';
 
 /**
  * =========================================================================
@@ -20,7 +21,7 @@ export const VIDEO_CATEGORIES: readonly VideoCategoryMeta[] = Object.freeze([
   {
     id: 'racing',
     label: 'Motorsport & Telemetry',
-    description: 'Ferrari engine screams, Lewis #44 edits, and track days.',
+    description: 'Ferrari engine screams, Lewis Hamilton edits, and track days.',
   },
   {
     id: 'wishes',
@@ -70,7 +71,7 @@ export const VIDEO_VAULT_ENTRIES: readonly VideoEntry[] = Object.freeze([
   },
   {
     id: 'video-vault-2',
-    title: 'Scuderia Maranello & Lewis #44 Symphony',
+    title: 'Scuderia Maranello & Lewis Hamilton Symphony',
     description: 'Pure high-revving Ferrari V12 and turbo-hybrid horsepower soundtrack dedicated to our favourite F1 driver.',
     videoUrl: '/media/videos/f1-ferrari-reel.mp4',
     posterUrl: '/media/videos/f1-ferrari-poster.jpg',
@@ -141,16 +142,19 @@ export const VIDEO_VAULT_ENTRIES: readonly VideoEntry[] = Object.freeze([
 ]);
 
 export function getAllVaultVideos(): VideoEntry[] {
-  return [...VIDEO_VAULT_ENTRIES];
+  return getSessionShuffled(VIDEO_VAULT_ENTRIES, 'vaibhev_video_session_order');
 }
 
 export function getFeaturedVideo(): VideoEntry | undefined {
-  return VIDEO_VAULT_ENTRIES.find((v) => v.featured) || VIDEO_VAULT_ENTRIES[0];
+  const shuffled = getAllVaultVideos();
+  // Select the leading video from this session's shuffled order to spotlight as featured
+  return shuffled[0] || VIDEO_VAULT_ENTRIES[0];
 }
 
 export function getVideosByCategory(category: string): VideoEntry[] {
-  if (category === 'all') return [...VIDEO_VAULT_ENTRIES];
-  return VIDEO_VAULT_ENTRIES.filter((v) => v.category === category);
+  const videos = getAllVaultVideos();
+  if (category === 'all') return videos;
+  return videos.filter((v) => v.category === category);
 }
 
 export function getVideoCategories(): VideoCategoryMeta[] {

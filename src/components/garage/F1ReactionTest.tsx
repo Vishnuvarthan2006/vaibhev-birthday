@@ -99,7 +99,7 @@ export const F1ReactionTest: React.FC<F1ReactionTestProps> = ({
   const getTierDetails = (ms: number) => {
     if (ms < 220) {
       return {
-        rating: 'LEWIS HAMILTON #44 GOD-TIER',
+        rating: 'LEWIS HAMILTON GOD-TIER',
         badge: 'SCUDERIA POLE POSITION',
         color: 'text-amber-400',
         desc: 'Unbelievable launch reflexes! You matched Lewis Hamilton launching off the grid at Silverstone.',
@@ -130,7 +130,7 @@ export const F1ReactionTest: React.FC<F1ReactionTestProps> = ({
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto rounded-xl border border-gold-500/30 bg-obsidian-950 p-6 sm:p-8 select-none shadow-[0_0_50px_rgba(212,175,55,0.1)] relative overflow-hidden">
+    <div className="w-full max-w-4xl lg:max-w-5xl mx-auto rounded-xl border border-gold-500/30 bg-obsidian-950 p-6 sm:p-8 select-none shadow-[0_0_50px_rgba(212,175,55,0.1)] relative overflow-hidden">
       {/* Corner Brackets */}
       <div className="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-gold-400/60" />
       <div className="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-gold-400/60" />
@@ -145,21 +145,21 @@ export const F1ReactionTest: React.FC<F1ReactionTestProps> = ({
           </div>
           <div>
             <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-wide uppercase">
-              MARANELLO REACTION DYNO #44
+              THE NEED FOR SPEED
             </h3>
             <span className="font-mono text-[10px] text-gray-400 uppercase tracking-widest block">
-              TARGET: SUB-380MS TO UNLOCK CLUE 1
+              F1 LAUNCH REACTION DYNO • TARGET: SUB-380MS TO UNLOCK CLUE 1
             </span>
           </div>
         </div>
 
         {isClueDiscovered ? (
-          <span className="font-mono text-[11px] text-emerald-400 px-2 py-0.5 rounded bg-emerald-950/40 border border-emerald-500/40 flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5" /> CLUE 1 [V] DECODED
+          <span className="font-mono text-[11px] text-emerald-400 px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/40 flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5" /> CLUE 1 [M] DECODED
           </span>
         ) : (
-          <span className="font-mono text-[11px] text-gold-400 px-2 py-0.5 rounded bg-gold-500/10 border border-gold-500/30">
-            TREASURE HUNT CLUE 1
+          <span className="font-mono text-[11px] text-gold-400 px-2.5 py-1 rounded bg-gold-500/10 border border-gold-500/30">
+            CLUE 1 REWARD [M]
           </span>
         )}
       </div>
@@ -286,7 +286,7 @@ export const F1ReactionTest: React.FC<F1ReactionTestProps> = ({
           <Award className="w-3.5 h-3.5 text-gold-400" />
           Best Record: <span className="text-white font-bold">{bestTime ? `${bestTime} ms` : 'None yet'}</span>
         </span>
-        <span className="text-red-400 uppercase">HAMILTON #44 BENCHMARK: 215MS</span>
+        <span className="text-red-400 uppercase">HAMILTON BENCHMARK: 215MS</span>
       </div>
     </div>
   );

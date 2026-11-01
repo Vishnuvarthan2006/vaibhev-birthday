@@ -375,6 +375,86 @@ class F1AudioController {
       // Silently ignore
     }
   }
+
+  /**
+   * Spectacular Birthday Celebration Fanfare (Triumphant major chords with sparkling gold chimes)
+   */
+  public playCelebrationFanfare() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      // Harmonic celebratory chord progression: D Major -> G Major -> A Major -> D Major 9th
+      const chords = [
+        { freqs: [293.66, 369.99, 440.0, 587.33], start: 0.0, dur: 0.45 },
+        { freqs: [392.0, 493.88, 587.33, 783.99], start: 0.4, dur: 0.5 },
+        { freqs: [440.0, 554.37, 659.25, 880.0], start: 0.85, dur: 0.55 },
+        { freqs: [587.33, 739.99, 880.0, 1174.66, 1318.51], start: 1.35, dur: 1.4 },
+      ];
+
+      chords.forEach(({ freqs, start, dur }) => {
+        freqs.forEach((freq) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
+
+          gain.gain.setValueAtTime(0.08, ctx.currentTime + start);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + dur);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(ctx.currentTime + start);
+          osc.stop(ctx.currentTime + start + dur + 0.05);
+        });
+      });
+    } catch {
+      // Silently ignore
+    }
+  }
+
+  /**
+   * Crisp celebratory firework pop & golden sparkle burst
+   */
+  public playFireworkBurst() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      // Subtle firework pop
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(180, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(45, ctx.currentTime + 0.15);
+
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.16);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.17);
+
+      // Shimmer sparkle
+      const sparkleOsc = ctx.createOscillator();
+      const sparkleGain = ctx.createGain();
+      sparkleOsc.type = 'sine';
+      sparkleOsc.frequency.setValueAtTime(1400 + Math.random() * 400, ctx.currentTime + 0.04);
+      sparkleGain.gain.setValueAtTime(0.06, ctx.currentTime + 0.04);
+      sparkleGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+
+      sparkleOsc.connect(sparkleGain);
+      sparkleGain.connect(ctx.destination);
+      sparkleOsc.start(ctx.currentTime + 0.04);
+      sparkleOsc.stop(ctx.currentTime + 0.36);
+    } catch {
+      // Silently ignore
+    }
+  }
 }
 
 export const soundFx = new F1AudioController();

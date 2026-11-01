@@ -55,7 +55,7 @@ export interface NotebookEntry {
 
   /**
    * Optional short closing note, signoff, or signature.
-   * e.g., 'Always in your corner, — Alex', 'Keep pushing, — Driver #44'
+   * e.g., 'Always in your corner, — Alex', 'Keep pushing, — Driver SF'
    */
   closingNote?: string;
 

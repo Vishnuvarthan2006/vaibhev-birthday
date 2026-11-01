@@ -20,7 +20,7 @@ export const ClueFoundNotification: React.FC<ClueFoundNotificationProps> = ({
   useEffect(() => {
     let lastLength = 0;
     try {
-      const stored = localStorage.getItem('vaibhev_operation_mission_v1');
+      const stored = localStorage.getItem('vaibhev_operation_mission_v2');
       if (stored) {
         const parsed = JSON.parse(stored);
         lastLength = parsed.discoveredClueIds?.length || 0;
@@ -51,8 +51,8 @@ export const ClueFoundNotification: React.FC<ClueFoundNotificationProps> = ({
       }
     };
 
-    window.addEventListener('vaibhev_treasure_update', handleUpdate);
-    return () => window.removeEventListener('vaibhev_treasure_update', handleUpdate);
+    window.addEventListener('vaibhev_treasure_update_v2', handleUpdate);
+    return () => window.removeEventListener('vaibhev_treasure_update_v2', handleUpdate);
   }, []);
 
   if (!visible || !activeClue) return null;
@@ -75,7 +75,7 @@ export const ClueFoundNotification: React.FC<ClueFoundNotificationProps> = ({
         <div className="flex-1">
           <div className="flex items-center gap-1.5 text-gold-400 text-[10px] font-mono uppercase font-bold tracking-wider">
             <Sparkles className="w-3 h-3" />
-            <span>OPERATION VAIBHEV • CLUE #{activeClue.number}</span>
+            <span>OPERATION VAIBHEV • CLUE 0{activeClue.number}</span>
           </div>
 
           <h4 className="font-display text-sm font-bold text-white mt-0.5">
@@ -84,7 +84,7 @@ export const ClueFoundNotification: React.FC<ClueFoundNotificationProps> = ({
 
           <div className="mt-1 flex items-center gap-2">
             <span className="font-mono text-xs text-emerald-400 font-bold px-1.5 py-0.2 rounded bg-emerald-950/60 border border-emerald-500/40">
-              CIPHER [{activeClue.cipherLetter}]
+              FRAGMENT [{activeClue.revealedFragment}]
             </span>
             <span className="font-mono text-[10px] text-gray-300">
               {activeClue.flavorText.slice(0, 45)}...

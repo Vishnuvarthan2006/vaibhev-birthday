@@ -4,15 +4,9 @@ import {
   Film,
   Sparkles,
   Camera,
-  Layers,
   ArrowLeft,
-  Filter,
 } from 'lucide-react';
-import {
-  getAllGalleryPhotos,
-  getGalleryCategories,
-} from '../../data/galleryData';
-import type { GalleryCategoryId } from '../../types/gallery';
+import { getAllGalleryPhotos } from '../../data/galleryData';
 import { PhotoCard } from './PhotoCard';
 import { GalleryLightbox } from './GalleryLightbox';
 import { GoldButton } from '../common/GoldButton';
@@ -29,26 +23,10 @@ export const PhotoArchive: React.FC<PhotoArchiveProps> = ({
   onNavigateToVault,
 }) => {
   const { isClueDiscovered, discoverClue } = useTreasureHunt();
-  const [selectedCategory, setSelectedCategory] = useState<GalleryCategoryId>('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const categories = useMemo(() => getGalleryCategories(), []);
+  // Retrieve session-shuffled photographs in one continuous collection
   const allPhotos = useMemo(() => getAllGalleryPhotos(), []);
-
-  // Filter photos by selected category
-  const filteredPhotos = useMemo(() => {
-    if (selectedCategory === 'all') return allPhotos;
-    return allPhotos.filter((p) => p.category === selectedCategory);
-  }, [allPhotos, selectedCategory]);
-
-  // Compute category counts
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: allPhotos.length };
-    allPhotos.forEach((photo) => {
-      counts[photo.category] = (counts[photo.category] || 0) + 1;
-    });
-    return counts;
-  }, [allPhotos]);
 
   const handleOpenLightbox = (index: number) => {
     setLightboxIndex(index);
@@ -58,17 +36,12 @@ export const PhotoArchive: React.FC<PhotoArchiveProps> = ({
     setLightboxIndex(null);
   };
 
-  const handleCategorySelect = (catId: GalleryCategoryId) => {
-    soundFx.playUiClick();
-    setSelectedCategory(catId);
-  };
-
   return (
     <div className="relative min-h-screen w-full pb-20 select-none">
       {/* Background ambiance is provided by AmbientBackground */}
 
       {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
+      <div className="max-w-[1560px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
         {/* Navigation Breadcrumb / Header bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
           <button
@@ -89,109 +62,68 @@ export const PhotoArchive: React.FC<PhotoArchiveProps> = ({
                   soundFx.playUiClick();
                   onNavigateToVault();
                 }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/30 bg-red-950/20 text-red-400 hover:border-red-500/60 hover:text-white transition-all text-xs font-mono tracking-wider cursor-pointer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-red-500/30 bg-red-950/20 text-red-400 hover:border-red-500/60 hover:text-white transition-all text-xs sm:text-sm font-mono tracking-wider cursor-pointer"
               >
-                <Film className="w-3.5 h-3.5" />
+                <Film className="w-4 h-4" />
                 <span>VIDEO VAULT</span>
               </button>
             )}
 
-            {/* Secret Clue 6 Trigger */}
+            {/* Secret Clue 7 Shutter Trigger */}
             <button
-              onClick={() => discoverClue('clue-6-gallery')}
-              title="Inspect Secret Maranello Photo Shutter"
-              className={`font-mono text-xs px-2.5 py-1 rounded transition-all cursor-pointer ${
-                isClueDiscovered('clue-6-gallery')
+              onClick={() => discoverClue('clue-7-sathiya')}
+              title="Inspect Classified Shutter"
+              className={`font-mono text-xs sm:text-sm px-3 py-1.5 rounded transition-all cursor-pointer ${
+                isClueDiscovered('clue-7-sathiya')
                   ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/40 font-bold'
                   : 'text-gold-400/80 bg-black/40 border border-gold-500/20 hover:border-gold-400 hover:text-white animate-pulse'
               }`}
             >
-              {isClueDiscovered('clue-6-gallery') ? 'FRAME [E] VERIFIED ✓' : 'VAIBHEV #44 ARCHIVE 🔍'}
+              {isClueDiscovered('clue-7-sathiya') ? "THE SHUTTER CODE [I] DECODED ✓" : "THE SHUTTER CODE 🔍"}
             </button>
           </div>
         </div>
 
         {/* Hero Header Section */}
-        <div className="py-8 sm:py-12 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-mono uppercase tracking-widest mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+        <div className="py-8 sm:py-14 text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs sm:text-sm font-mono uppercase tracking-widest mb-4">
+            <Sparkles className="w-4 h-4 text-gold-400" />
             <span>VOLUME II • VISUAL ANTHOLOGY</span>
           </div>
 
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-tight">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-tight leading-tight">
             THE MEMORY <span className="gold-text-gradient">ARCHIVE</span>
           </h1>
 
-          <p className="mt-3 font-mono text-xs sm:text-sm tracking-[0.25em] text-red-500 font-bold uppercase">
+          <p className="mt-3 font-mono text-sm sm:text-base tracking-[0.25em] text-red-500 font-bold uppercase">
             EVERY FRAME HAS A STORY.
           </p>
 
-          <p className="mt-4 text-xs sm:text-sm text-gray-400 leading-relaxed max-w-2xl mx-auto">
-            A curated photographic retrospective celebrating the shared road trips, track days,
+          <p className="mt-4 text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto font-sans">
+            A continuous photographic retrospective celebrating the shared road trips, track days,
             unfiltered laughter, and defining milestones of Vaibhev and the 9-Squad Syndicate.
           </p>
 
-          {/* Quick Telemetry Bar */}
-          <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:gap-8 px-4 sm:px-6 py-2.5 rounded-lg bg-obsidian-900/60 border border-white/[0.06] text-xs font-mono text-gray-400">
-            <div className="flex items-center gap-1.5">
-              <Camera className="w-3.5 h-3.5 text-gold-400" />
-              <span className="text-white font-bold">{allPhotos.length}</span> Frames
+          {/* Quick Telemetry Bar with Total Photo Count */}
+          <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:gap-8 px-6 py-3 rounded-xl bg-obsidian-900/80 border border-white/[0.08] text-xs sm:text-sm font-mono text-gray-400">
+            <div className="flex items-center gap-2">
+              <Camera className="w-4 h-4 text-gold-400" />
+              <span className="text-white font-bold">{allPhotos.length}</span> Photographs
             </div>
-            <div className="flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-red-500" />
-              <span className="text-white font-bold">{categories.length - 1}</span> Sectors
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-red-500" />
+              <span className="text-white font-bold">1</span> Continuous Archive
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-gold-400 font-bold">9</span> Contributors
+            <div className="flex items-center gap-2">
+              <span className="text-gold-400 font-bold">9</span> Friends
             </div>
           </div>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="mb-8 sm:mb-10">
-          <div className="flex items-center justify-center gap-2 pb-2">
-            <Filter className="w-3.5 h-3.5 text-gold-400/80" />
-            <span className="font-mono text-xs text-gray-400 uppercase tracking-wider">
-              Filter by Sector:
-            </span>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mt-2">
-            {categories.map((cat) => {
-              const isSelected = selectedCategory === cat.id;
-              const count = categoryCounts[cat.id] || 0;
-
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategorySelect(cat.id)}
-                  className={`group flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-mono transition-all duration-200 cursor-pointer ${
-                    isSelected
-                      ? 'bg-gradient-to-r from-gold-500/20 to-amber-500/20 border border-gold-400 text-gold-300 shadow-[0_0_15px_rgba(212,175,55,0.25)]'
-                      : 'bg-obsidian-900/70 border border-white/[0.08] text-gray-400 hover:text-white hover:border-white/20'
-                  }`}
-                >
-                  <span>{cat.label}</span>
-                  <span
-                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                      isSelected
-                        ? 'bg-gold-500/30 text-gold-200'
-                        : 'bg-white/10 text-gray-400 group-hover:text-white'
-                    }`}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Gallery Content Area */}
-        {filteredPhotos.length > 0 ? (
-          /* Responsive Masonry Layout via CSS columns */
+        {/* Continuous Masonry Layout */}
+        {allPhotos.length > 0 ? (
           <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-6">
-            {filteredPhotos.map((photo, idx) => (
+            {allPhotos.map((photo, idx) => (
               <PhotoCard
                 key={photo.id}
                 photo={photo}
@@ -201,26 +133,16 @@ export const PhotoArchive: React.FC<PhotoArchiveProps> = ({
             ))}
           </div>
         ) : (
-          /* Elegant Empty State */
           <div className="my-16 p-8 sm:p-12 rounded-xl bg-obsidian-900/40 border border-gold-500/20 text-center max-w-md mx-auto">
             <div className="w-14 h-14 rounded-full border border-gold-500/30 bg-gold-500/10 flex items-center justify-center text-gold-400 mx-auto mb-4">
               <Camera className="w-6 h-6" />
             </div>
             <h3 className="font-display text-lg font-bold text-white uppercase tracking-wide">
-              No Frames In This Sector Yet
+              No Photographs Yet
             </h3>
             <p className="text-xs text-gray-400 mt-2 font-mono">
-              The squad hasn’t assigned any photos to this category. Drop files into /public/media/gallery/ to add memories.
+              The archive is awaiting memories. Drop files into /public/media/gallery/ to add photos.
             </p>
-            <div className="mt-6">
-              <GoldButton
-                variant="gold-outline"
-                size="sm"
-                onClick={() => handleCategorySelect('all')}
-              >
-                VIEW ALL FRAMES
-              </GoldButton>
-            </div>
           </div>
         )}
 
@@ -254,7 +176,7 @@ export const PhotoArchive: React.FC<PhotoArchiveProps> = ({
       {/* Fullscreen Lightbox Modal */}
       {lightboxIndex !== null && (
         <GalleryLightbox
-          photos={filteredPhotos}
+          photos={allPhotos}
           currentIndex={lightboxIndex}
           isOpen={lightboxIndex !== null}
           onClose={handleCloseLightbox}

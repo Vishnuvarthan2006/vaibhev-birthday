@@ -14,7 +14,7 @@ export const RECIPIENT_PROFILE: RecipientProfile = {
   passions: [
     'Supercars & Automotive Engineering',
     'Formula 1 Racing & Ferrari Telemetry',
-    'Lewis Hamilton (#44)',
+    'Lewis Hamilton',
     'Marvel & Spider-Man Universe',
     'Minecraft Building & Adventures',
     'Elite Brainrot Memes (Tung Tung Tung Sahur)',

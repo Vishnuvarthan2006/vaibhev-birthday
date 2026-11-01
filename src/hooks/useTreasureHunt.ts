@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { ClueId, TreasureHuntState } from '../types/treasureHunt';
-import { TREASURE_CLUES, MASTER_VAULT_CODE } from '../data/treasureHuntData';
+import { TREASURE_CLUES, MASTER_VAULT_CODE, verifyMasterCode } from '../data/treasureHuntData';
 import { soundFx } from '../utils/audioFx';
 
-const STORAGE_KEY = 'vaibhev_operation_mission_v1';
-const EVENT_NAME = 'vaibhev_treasure_update';
+const STORAGE_KEY = 'vaibhev_operation_mission_v2';
+const EVENT_NAME = 'vaibhev_treasure_update_v2';
 
 const DEFAULT_STATE: TreasureHuntState = {
   discoveredClueIds: [],
   isVaultUnlocked: false,
+  revealedHints: {},
 };
 
 function readStorageState(): TreasureHuntState {
@@ -21,6 +22,7 @@ function readStorageState(): TreasureHuntState {
       discoveredClueIds: Array.isArray(parsed.discoveredClueIds) ? parsed.discoveredClueIds : [],
       isVaultUnlocked: Boolean(parsed.isVaultUnlocked),
       unlockedAt: parsed.unlockedAt,
+      revealedHints: typeof parsed.revealedHints === 'object' && parsed.revealedHints !== null ? parsed.revealedHints : {},
     };
   } catch {
     return DEFAULT_STATE;
@@ -71,12 +73,6 @@ export function useTreasureHunt() {
       const nextState: TreasureHuntState = {
         ...state,
         discoveredClueIds: nextIds,
-        // Auto-unlock vault if all 9 are collected
-        isVaultUnlocked: state.isVaultUnlocked || nextIds.length >= TREASURE_CLUES.length,
-        unlockedAt:
-          nextIds.length >= TREASURE_CLUES.length && !state.isVaultUnlocked
-            ? new Date().toISOString()
-            : state.unlockedAt,
       };
 
       writeStorageState(nextState);
@@ -85,6 +81,33 @@ export function useTreasureHunt() {
       return true;
     },
     [state]
+  );
+
+  const revealHint = useCallback(
+    (clueId: string, hintNumber: 1 | 2) => {
+      const currentLevel = state.revealedHints?.[clueId] || 0;
+      if (currentLevel >= hintNumber) return;
+
+      const nextHints = {
+        ...(state.revealedHints || {}),
+        [clueId]: hintNumber,
+      };
+      const nextState: TreasureHuntState = {
+        ...state,
+        revealedHints: nextHints,
+      };
+      writeStorageState(nextState);
+      setState(nextState);
+      soundFx.playUiClick();
+    },
+    [state]
+  );
+
+  const getHintLevel = useCallback(
+    (clueId: string): number => {
+      return state.revealedHints?.[clueId] || 0;
+    },
+    [state.revealedHints]
   );
 
   const unlockVault = useCallback(() => {
@@ -98,21 +121,45 @@ export function useTreasureHunt() {
     soundFx.playVaultFanfare();
   }, [state]);
 
+  const verifyAndUnlock = useCallback(
+    (inputCode: string): boolean => {
+      if (verifyMasterCode(inputCode)) {
+        unlockVault();
+        return true;
+      }
+      return false;
+    },
+    [unlockVault]
+  );
+
   const resetProgress = useCallback(() => {
     const nextState: TreasureHuntState = {
       discoveredClueIds: [],
       isVaultUnlocked: false,
+      revealedHints: {},
     };
     writeStorageState(nextState);
     setState(nextState);
     soundFx.playUiClick();
   }, []);
 
-  // Compute cipher letter array (0-8)
-  const cipherLetters = TREASURE_CLUES.map((clue) => {
-    return state.discoveredClueIds.includes(clue.id) ? clue.cipherLetter : '·';
-  });
+  // Compute Word 1 (MEGA) slots
+  const word1Letters = [
+    state.discoveredClueIds.includes('clue-1-vishnu') ? 'M' : '·',
+    state.discoveredClueIds.includes('clue-2-santhosh') ? 'E' : '·',
+    state.discoveredClueIds.includes('clue-3-akshaya') ? 'G' : '·',
+    state.discoveredClueIds.includes('clue-4-deepthi') ? 'A' : '·',
+  ];
 
+  // Compute Word 2 (MIND) slots
+  const word2Letters = [
+    state.discoveredClueIds.includes('clue-6-savitha') ? 'M' : '·',
+    state.discoveredClueIds.includes('clue-7-sathiya') ? 'I' : '·',
+    state.discoveredClueIds.includes('clue-8-thiru') ? 'N' : '·',
+    state.discoveredClueIds.includes('clue-9-rashmika') ? 'D' : '·',
+  ];
+
+  const hasBlueprint = state.discoveredClueIds.includes('clue-5-sanjitha');
   const totalDiscovered = state.discoveredClueIds.length;
   const isAllDiscovered = totalDiscovered >= TREASURE_CLUES.length;
 
@@ -122,9 +169,14 @@ export function useTreasureHunt() {
     unlockedAt: state.unlockedAt,
     isClueDiscovered,
     discoverClue,
+    revealHint,
+    getHintLevel,
     unlockVault,
+    verifyAndUnlock,
     resetProgress,
-    cipherLetters,
+    word1Letters,
+    word2Letters,
+    hasBlueprint,
     totalDiscovered,
     totalClues: TREASURE_CLUES.length,
     isAllDiscovered,

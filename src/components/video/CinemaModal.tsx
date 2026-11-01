@@ -244,19 +244,19 @@ export const CinemaModal: React.FC<CinemaModalProps> = ({
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
-        className="relative w-full max-w-5xl rounded-xl bg-obsidian-950 border border-gold-500/30 shadow-[0_0_80px_rgba(212,175,55,0.15)] flex flex-col overflow-hidden max-h-[95vh]"
+        className="relative w-full max-w-5xl 2xl:max-w-6xl rounded-2xl bg-obsidian-950 border border-gold-500/30 shadow-[0_0_80px_rgba(212,175,55,0.15)] flex flex-col overflow-hidden max-h-[95vh]"
       >
         {/* Cinema Film Strip Header */}
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/[0.08] bg-obsidian-900/90 z-20">
+        <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 border-b border-white/[0.08] bg-obsidian-900/90 z-20">
           <div className="flex items-center gap-3">
-            <div className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse shadow-[0_0_8px_rgba(220,38,38,0.8)]" />
-            <span className="font-mono text-xs text-gold-400 font-bold uppercase tracking-widest">
-              CINEMA SCREENING ROOM • #44 TELEMETRY
+            <div className="w-3 h-3 rounded-full bg-red-600 animate-pulse shadow-[0_0_8px_rgba(220,38,38,0.8)]" />
+            <span className="font-mono text-xs sm:text-sm text-gold-400 font-bold uppercase tracking-widest">
+              CINEMA SCREENING ROOM • MARANELLO TELEMETRY
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="hidden sm:inline-block font-mono text-[10px] text-gray-400 border border-white/10 px-2 py-0.5 rounded">
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline-block font-mono text-xs text-gray-400 border border-white/10 px-2.5 py-1 rounded">
               {video.resolution || 'HD 1080p'}
             </span>
             <button
@@ -265,7 +265,7 @@ export const CinemaModal: React.FC<CinemaModalProps> = ({
                 onClose();
               }}
               title="Close Screening (Esc)"
-              className="p-1.5 rounded-full border border-gold-500/40 text-gold-400 hover:text-white hover:bg-gold-500/20 transition-all cursor-pointer"
+              className="p-2 rounded-full border border-gold-500/40 text-gold-400 hover:text-white hover:bg-gold-500/20 transition-all cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -308,7 +308,7 @@ export const CinemaModal: React.FC<CinemaModalProps> = ({
                   <AlertCircle className="w-3.5 h-3.5" />
                   SLOT CONFIGURED • AWAITING MP4
                 </span>
-                <span className="text-gold-400">{video.duration || '03:44'}</span>
+                <span className="text-gold-400">{video.duration || '03:30'}</span>
               </div>
 
               {/* Slate Center Details */}
@@ -463,44 +463,44 @@ export const CinemaModal: React.FC<CinemaModalProps> = ({
         </div>
 
         {/* Video Story & Metadata Panel */}
-        <div className="p-4 sm:p-6 bg-obsidian-950 border-t border-white/[0.08] overflow-y-auto max-h-[30vh]">
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+        <div className="p-5 sm:p-7 bg-obsidian-950 border-t border-white/[0.08] overflow-y-auto max-h-[30vh]">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-5">
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-red-600/20 text-red-400 border border-red-500/30">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="font-mono text-xs uppercase px-2.5 py-1 rounded bg-red-600/20 text-red-400 border border-red-500/30">
                   {video.category || 'Tribute'}
                 </span>
                 {video.featured && (
-                  <span className="font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-gold-500/20 text-gold-300 border border-gold-500/30">
+                  <span className="font-mono text-xs uppercase px-2.5 py-1 rounded bg-gold-500/20 text-gold-300 border border-gold-500/30">
                     Featured Screening
                   </span>
                 )}
               </div>
-              <h2 className="font-display text-lg sm:text-xl font-bold text-white tracking-wide">
+              <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-wide">
                 {video.title}
               </h2>
               {video.description && (
-                <p className="text-xs sm:text-sm text-gray-300 mt-1 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-300 mt-2 leading-relaxed">
                   {video.description}
                 </p>
               )}
             </div>
 
-            <div className="flex flex-wrap sm:flex-col gap-2 font-mono text-xs text-gray-400 shrink-0">
+            <div className="flex flex-wrap sm:flex-col gap-2.5 font-mono text-xs sm:text-sm text-gray-400 shrink-0">
               {video.contributor && (
-                <span className="flex items-center gap-1.5 text-gold-400/90">
-                  <User className="w-3.5 h-3.5 text-gold-400" />
+                <span className="flex items-center gap-2 text-gold-400/90">
+                  <User className="w-4 h-4 text-gold-400" />
                   {video.contributor}
                 </span>
               )}
               {video.dateAdded && (
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                <span className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-gray-400" />
                   {video.dateAdded}
                 </span>
               )}
-              <span className="flex items-center gap-1.5 text-gray-400">
-                <Tag className="w-3.5 h-3.5" />
+              <span className="flex items-center gap-2 text-gray-400">
+                <Tag className="w-4 h-4" />
                 Local File: {video.videoUrl}
               </span>
             </div>

@@ -5,14 +5,23 @@
      CORE PALETTE: LUXURY AUTOMOTIVE / SCUDERIA BLACK & GOLD
      ========================================================================= */
 
-  /* Obsidian & Carbon Dark Spectrum */
-  --color-obsidian-950: #060608;
-  --color-obsidian-900: #0b0b0e;
-  --color-obsidian-850: #101015;
-  --color-obsidian-800: #16161d;
-  --color-obsidian-700: #22222b;
-  --color-carbon-border: #282834;
-  --color-carbon-card: #0f0f13;
+  /* Obsidian & Warm Charcoal Dark Spectrum */
+  --color-obsidian-950: #0a090c;
+  --color-obsidian-900: #121115;
+  --color-obsidian-850: #18171c;
+  --color-obsidian-800: #1f1e24;
+  --color-obsidian-700: #2a2932;
+  --color-carbon-border: #32303c;
+  --color-carbon-card: #151419;
+
+  /* Muted Champagne & Antique Gold Spectrum */
+  --color-champagne-100: #faf7f2;
+  --color-champagne-200: #f4eee3;
+  --color-champagne-300: #e8ddcb;
+  --color-champagne-400: #d6c6ad;
+  --color-warm-ivory: #faf6ed;
+  --color-warm-grey-300: #d4d1d8;
+  --color-warm-grey-400: #9e9ba5;
 
   /* Metallic Gold Spectrum */
   --color-gold-100: #fbf7eb;
@@ -96,12 +105,12 @@ body {
 .carbon-panel {
   background: linear-gradient(
     145deg,
-    rgba(22, 22, 29, 0.75) 0%,
-    rgba(13, 13, 17, 0.85) 100%
+    rgba(27, 25, 32, 0.88) 0%,
+    rgba(18, 17, 22, 0.94) 100%
   );
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 /* Subtle Racing Telemetry Carbon Pattern */

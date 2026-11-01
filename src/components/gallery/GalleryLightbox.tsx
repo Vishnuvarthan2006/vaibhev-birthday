@@ -6,7 +6,6 @@ import {
   Camera,
   Calendar,
   User,
-  Tag,
   Maximize2,
   Minimize2,
 } from 'lucide-react';
@@ -110,8 +109,8 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
           <span className="font-mono text-xs text-gold-400 font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm border border-gold-500/30 bg-gold-500/10">
             FRAME {currentIndex + 1} OF {photos.length}
           </span>
-          <span className="hidden sm:inline-block font-mono text-[11px] text-gray-400">
-            {currentPhoto.category.replace('-', ' ').toUpperCase()}
+          <span className="hidden sm:inline-block font-mono text-[11px] text-gray-400 tracking-wider">
+            THE MEMORY ARCHIVE
           </span>
         </div>
 
@@ -243,10 +242,6 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
                 {currentPhoto.dateOrEvent}
               </span>
             )}
-            <span className="flex items-center gap-1.5 text-red-400">
-              <Tag className="w-3.5 h-3.5" />
-              {currentPhoto.category}
-            </span>
           </div>
         </div>
       </div>

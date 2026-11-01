@@ -23,43 +23,53 @@ All Easter Egg clues, riddles, and puzzle ciphers are decoupled from code into c
 
 ### 1. Editing Treasure Hunt Clues & Riddles
 Open [`src/data/treasureHuntData.ts`](file:///C:/Users/VELMURUGAN.M/.gemini/antigravity/scratch/vaibhev-birthday/src/data/treasureHuntData.ts):
-- **`TREASURE_CLUES`**: Contains the definition of all 9 clues.
-  ```typescript
-  {
-    id: 'clue-1-reaction',
-    number: 1,
-    title: 'Maranello Reaction Telemetry',
-    locationName: 'Secret Garage • Reaction Dyno',
-    riddleHint: 'Where starting lights extinguish and reaction times are clocked...',
-    cipherLetter: 'V',
-    cipherIndex: 0,
-    symbol: '🏎️',
-    flavorText: 'Reflexes sharper than an apex overtake at Monza.',
-  }
-  ```
-- **`MASTER_VAULT_CODE`**: Defaults to `'VAIBHEV44'`. You can change this code string at any time.
+- **`TREASURE_CLUES`**: Contains the definition of all 9 clues, each curated by one of the 9 friends.
+- **`MASTER_VAULT_CODE`**: Defaults to `'MEGA MIND'`. Accepts `'MEGA MIND'` and `'MEGAMIND'` (case-insensitive).
 
-### 2. The Four Interactive Mini-Games
-Located in `src/components/garage/`:
-- **F1 Reaction Dyno (`F1ReactionTest.tsx`):**
-  - Reaction time test with sequential gantry lights and false start penalty detection.
-  - Target time to unlock Clue 1: $\le 380\text{ms}$ (easily adjustable in code).
-- **Spider-Sense Radar (`SpiderSenseGame.tsx`):**
-  - Concentric web radar with 4 cardinal instinct nodes: *Agility, Instinct, Courage, Loyalty*.
-  - Tapping all 4 nodes triggers the Spider-Sense particle resonance and unlocks Clue 2.
-- **Netherite Deep Mine (`MinecraftMiningGame.tsx`):**
-  - 3x3 interactive voxel grid with Minecraft pickaxe sounds and crack overlays.
-  - Mining the central Ancient Debris drops a Netherite Ingot and unlocks Clue 3.
-- **Brainrot Chaos Zone (`BrainrotZone.tsx`):**
-  - Interactive soundboard featuring *Tung Tung Tung Sahur*, *Taluku Buluku*, *Scuderia V12*, *Spider-Thwip*, and *Emotional Damage*.
-  - Tapping the "Tung Tung Tung Sahur" rhythm button 3 times triggers *Taluku Buluku* party mode and unlocks Clue 4.
+### 2. The Six Secret Garage Arcade Games
+1. **The Need for Speed** (`F1ReactionTest.tsx`):
+   - F1 5-light starting gantry launch reaction test with false start penalty detection.
+   - Core gameplay preserved. Unlocks Vishnu's Clue 1 on reaction $\le 380\text{ms}$.
+2. **The Chaos Theory** (`BrainrotZone.tsx`):
+   - Interactive soundboard featuring *Tung Tung Tung Sahur*, *Taluku Buluku*, *Scuderia V12*, *Spider-Thwip*, and *Emotional Damage*.
+   - Core gameplay preserved. Unlocks Deepthi's Clue 4 when tapping *Tung Tung Tung Sahur* 3 times in rapid rhythm.
+3. **Santhosh's Craft It or Lose It** (`CraftingChallengeGame.tsx`):
+   - Minecraft crafting table challenge with 5 progressive rounds (Diamond Sword, Golden Apple, Combat Shield, Hunting Bow, Eye of Ender).
+   - Dynamic inventory selection, live timer, combo streaks, crafting feedback, and final rank.
+4. **Vishnu's Pit Stop Panic** (`PitStopPanicGame.tsx`):
+   - High-intensity Formula 1 pit crew challenge.
+   - Real-time car box entry, jacking up, 4-wheel nut loosening, tyre swapping to Pirelli Softs, torque verification, jack drop, and green lollipop release.
+   - Millisecond stopwatch, personal best tracking, and time penalties for unsafe release.
+5. **Akshaya's Guess the Hero** (`MarvelGuessGame.tsx`):
+   - Marvel multiverse character identification challenge across 5 difficulty tiers.
+   - Stylized CSS/SVG silhouettes, power profiles, ability telemetry, and authentic comic trivia facts.
+6. **Deepthi's Name That Machine** (`CarTriviaGame.tsx`):
+   - Sports car, supercar, and F1 machine identification challenge across 5 specification rounds.
+   - Engine specs, aero profiles, top speeds, horsepower dyno stats, and historical automotive heritage facts.
 
-### 3. Clues Discovered Across Other Website Sectors
-- **Clue 5 (`clue-5-notebook`):** Hidden on the Epilogue spread of the 3D Notebook. Tap the gold wax seal on the closing spread to decode `[H]`.
-- **Clue 6 (`clue-6-gallery`):** Hidden in the Photo Archive header. Tap the `VAIBHEV #44 ARCHIVE` shutter badge to decode `[E]`.
-- **Clue 7 (`clue-7-vault`):** Hidden in the Video Vault header. Tap the `CLASSIFIED TRANSMISSIONS` frequency badge to decode `[V]`.
-- **Clue 8 (`clue-8-paddock`):** Hidden in the Live Telemetry HUD. Tap the `CAR #44` driver badge 3 times to enter Overdrive and decode `[4]`.
-- **Clue 9 (`clue-9-syndicate`):** Located in the Secret Garage. Tap all 9 friend nodes in the Syndicate Keystone to decode `[4]`.
+### 3. Clue & Friend Assignment Map
+1. **Vishnu (`clue-1-vishnu`)**: F1 Reaction Dyno in The Need for Speed $\to$ Letter **`M`** (Word 1, Letter 1)
+2. **Santhosh (`clue-2-santhosh`)**: Classified Web Relay in Secret Garage $\to$ Letter **`E`** (Word 1, Letter 2)
+3. **Akshaya (`clue-3-akshaya`)**: Ancient Bedrock Relic in Secret Garage $\to$ Letter **`G`** (Word 1, Letter 3)
+4. **Deepthi (`clue-4-deepthi`)**: 3:00 AM Rhythm in The Chaos Theory $\to$ Letter **`A`** (Word 1, Letter 4)
+5. **Sanjitha (`clue-5-sanjitha`)**: Syndicate Keystone in Secret Garage $\to$ Master Blueprint: **`TWO WORDS [4 + 4 LETTERS]`**
+6. **Savitha (`clue-6-savitha`)**: Epilogue Wax Seal in 3D Notebook $\to$ Letter **`M`** (Word 2, Letter 1)
+7. **Sathiya (`clue-7-sathiya`)**: Classified Shutter in Photo Archive $\to$ Letter **`I`** (Word 2, Letter 2)
+8. **Thiru (`clue-8-thiru`)**: Classified Reel in Video Vault $\to$ Letter **`N`** (Word 2, Letter 3)
+9. **Rashmika (`clue-9-rashmika`)**: Hamilton #44 Overdrive in Paddock HUD $\to$ Letter **`D`** (Word 2, Letter 4)
+
+Result: **`M · E · G · A`** &nbsp; + &nbsp; **`M · I · N · D`** = **`MEGA MIND`**
+
+### 3. The 9 Friends Roster
+1. Vishnu
+2. Santhosh
+3. Akshaya
+4. Deepthi
+5. Sanjitha
+6. Savitha
+7. Sathiya
+8. Thiru
+9. Rashmika
 
 ### 4. Customizing the Final Vault Birthday Dispatch
 Open [`src/components/garage/GrandFinalVault.tsx`](file:///C:/Users/VELMURUGAN.M/.gemini/antigravity/scratch/vaibhev-birthday/src/components/garage/GrandFinalVault.tsx):

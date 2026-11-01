@@ -80,7 +80,7 @@ export const BrainrotZone: React.FC<BrainrotZoneProps> = ({
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto rounded-xl border border-gold-500/30 bg-obsidian-950 p-6 sm:p-8 select-none shadow-[0_0_50px_rgba(212,175,55,0.1)] relative overflow-hidden">
+    <div className="w-full max-w-4xl lg:max-w-5xl mx-auto rounded-xl border border-gold-500/30 bg-obsidian-950 p-6 sm:p-8 select-none shadow-[0_0_50px_rgba(212,175,55,0.1)] relative overflow-hidden">
       {/* Floating Meme Emoji Particles during HyperMode */}
       {isHyperMode && (
         <div className="absolute inset-0 pointer-events-none z-30 flex flex-wrap justify-around items-center opacity-80 animate-pulse">
@@ -104,10 +104,10 @@ export const BrainrotZone: React.FC<BrainrotZoneProps> = ({
           </div>
           <div>
             <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-wide uppercase">
-              BRAINROT SOUNDBOARD & CHAOS ZONE
+              THE CHAOS THEORY
             </h3>
             <span className="font-mono text-[10px] text-gray-400 uppercase tracking-widest block">
-              TAP TUNG TUNG TUNG 3 TIMES TO UNLOCK CLUE 4
+              BRAINROT SOUNDBOARD &amp; RHYTHM CHALLENGE • TAP TUNG 3 TIMES TO UNLOCK CLUE 4
             </span>
           </div>
         </div>
@@ -122,12 +122,12 @@ export const BrainrotZone: React.FC<BrainrotZoneProps> = ({
           </button>
 
           {isClueDiscovered ? (
-            <span className="font-mono text-[11px] text-emerald-400 px-2 py-0.5 rounded bg-emerald-950/40 border border-emerald-500/40 flex items-center gap-1">
-              <CheckCircle2 className="w-3.5 h-3.5" /> CLUE 4 [B] DECODED
+            <span className="font-mono text-[11px] text-emerald-400 px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/40 flex items-center gap-1">
+              <CheckCircle2 className="w-3.5 h-3.5" /> CLUE 4 [A] DECODED
             </span>
           ) : (
-            <span className="font-mono text-[11px] text-gold-400 px-2 py-0.5 rounded bg-gold-500/10 border border-gold-500/30">
-              TREASURE HUNT CLUE 4
+            <span className="font-mono text-[11px] text-gold-400 px-2.5 py-1 rounded bg-gold-500/10 border border-gold-500/30">
+              CLUE 4 REWARD [A]
             </span>
           )}
         </div>

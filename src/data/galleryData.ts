@@ -1,4 +1,5 @@
 import type { GalleryCategoryMeta, GalleryPhoto } from '../types/gallery';
+import { getSessionShuffled } from '../utils/shuffle';
 
 /**
  * =========================================================================
@@ -31,7 +32,7 @@ export const GALLERY_CATEGORIES: readonly GalleryCategoryMeta[] = Object.freeze(
   {
     id: 'cars-f1',
     label: 'Cars & F1',
-    description: 'Ferrari scarlet, #44 Lewis Hamilton, track days, and automotive passion.',
+    description: 'Ferrari scarlet, Lewis Hamilton, track days, and automotive passion.',
   },
   {
     id: 'special-moments',
@@ -79,7 +80,7 @@ export const GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze([
   },
   {
     id: 'photo-03',
-    title: 'Lewis #44 Masterclass',
+    title: 'Lewis Hamilton Masterclass',
     description: 'Hammer time in the rain. Proof that legends never back down.',
     imageUrl: '/media/gallery/hamilton-44.jpg',
     category: 'cars-f1',
@@ -87,7 +88,7 @@ export const GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze([
     contributor: 'Siddharth',
     featured: true,
     aspectRatio: 'portrait',
-    tags: ['LewisHamilton', 'LH44', 'GOAT'],
+    tags: ['LewisHamilton', 'HammerTime', 'GOAT'],
   },
   {
     id: 'photo-04',
@@ -200,12 +201,13 @@ export const GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze([
 ]);
 
 export function getAllGalleryPhotos(): GalleryPhoto[] {
-  return [...GALLERY_PHOTOS];
+  return getSessionShuffled(GALLERY_PHOTOS, 'vaibhev_gallery_session_order');
 }
 
 export function getGalleryPhotosByCategory(category: string): GalleryPhoto[] {
-  if (category === 'all') return [...GALLERY_PHOTOS];
-  return GALLERY_PHOTOS.filter((photo) => photo.category === category);
+  const photos = getAllGalleryPhotos();
+  if (category === 'all') return photos;
+  return photos.filter((photo) => photo.category === category);
 }
 
 export function getGalleryCategories(): GalleryCategoryMeta[] {

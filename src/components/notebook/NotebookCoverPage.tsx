@@ -35,7 +35,7 @@ export const NotebookCoverPage: React.FC<NotebookCoverPageProps> = ({
           </div>
 
           <span className="font-mono text-xs tracking-[0.3em] text-red-400 font-bold uppercase mb-2">
-            SCUDERIA FERRAI • #44
+            SCUDERIA FERRARI • SPECIAL EDITION
           </span>
 
           <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase leading-tight">

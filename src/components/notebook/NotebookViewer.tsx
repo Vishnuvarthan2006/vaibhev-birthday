@@ -319,16 +319,16 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
   const activeEntry = !isCover && !isEnding ? entries[currentChapterIdx] : null;
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col items-center">
+    <div className="w-full max-w-6xl 2xl:max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-7 flex flex-col items-center">
       {/* Top Controls Bar */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-3 mb-6 bg-obsidian-950/80 backdrop-blur-md p-3 sm:p-4 rounded-xl border border-white/10 select-none">
+      <div className="w-full flex flex-wrap items-center justify-between gap-4 mb-4 bg-obsidian-950/85 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-white/10 select-none">
         {/* Return to Paddock */}
         <button
           onClick={() => {
             soundFx.playUiClick();
             onReturnToPaddock();
           }}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 hover:border-gold-500/40 text-xs font-mono text-gray-300 hover:text-white transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 hover:border-gold-500/40 text-xs sm:text-sm font-mono text-gray-300 hover:text-white transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 text-gold-400" />
           <span>THE PADDOCK</span>
@@ -336,7 +336,7 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
 
         {/* Center Progress Indicator */}
         <div className="text-center font-mono">
-          <div className="text-xs sm:text-sm font-bold text-white tracking-wider">
+          <div className="text-sm sm:text-base font-bold text-white tracking-wider">
             {isCover && 'PROLOGUE • THE NINE CHAPTERS'}
             {activeEntry && (
               <span className="text-gold-300">
@@ -346,13 +346,13 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
             )}
             {isEnding && 'EPILOGUE • THE END OF THE CHAPTERS'}
           </div>
-          <div className="text-[10px] text-gray-400 tracking-widest mt-0.5">
+          <div className="text-xs text-gray-400 tracking-widest mt-1">
             SPREAD {currentSpread + 1} OF {totalSpreads} • DRAG PAGE OR CLICK TO TURN
           </div>
         </div>
 
         {/* Right Tools: Index, Sound, Shuffle */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <button
             onClick={() => setIndexDrawerOpen(true)}
             title="Open Chapter Index"
@@ -418,7 +418,7 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
       {/* =========================================================================
           PHYSICAL 3D OPEN-BOOK STAGE
           ========================================================================= */}
-      <div className="w-full relative leather-journal-cover rounded-2xl p-2.5 sm:p-5 md:p-6 mb-8 select-none">
+      <div className="w-full relative leather-journal-cover rounded-2xl p-2 sm:p-4 md:p-5 mb-6 select-none">
         {/* Brass corner protectors on leather book */}
         <div className="absolute top-2 left-2 w-6 h-6 border-t-2 border-l-2 border-gold-400/80 rounded-tl-sm pointer-events-none z-30" />
         <div className="absolute top-2 right-2 w-6 h-6 border-t-2 border-r-2 border-gold-400/80 rounded-tr-sm pointer-events-none z-30" />
@@ -433,13 +433,13 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
         {/* 3D Perspective Stage Container */}
         <div
           ref={bookContainerRef}
-          className="book-3d-stage relative z-10 w-full min-h-[560px] sm:min-h-[620px] rounded-xl overflow-hidden shadow-2xl border border-gold-500/30 bg-[#090807]"
+          className="book-3d-stage relative z-10 w-full min-h-[590px] md:min-h-[660px] lg:min-h-[710px] rounded-xl overflow-hidden shadow-2xl border border-gold-500/30 bg-[#090807]"
         >
           {/* =====================================================================
               STATIC SPREAD VIEW (When not turning or idle)
               ===================================================================== */}
           {turnDirection === null && (
-            <div className="w-full h-full min-h-[560px] sm:min-h-[620px] grid grid-cols-1 md:grid-cols-2">
+            <div className="w-full h-full min-h-[590px] md:min-h-[660px] lg:min-h-[710px] grid grid-cols-1 md:grid-cols-2">
               {/* Left Page Half (Always renders side="left": letter / cover emblem / ending signatures) */}
               <div
                 onMouseDown={(e) => handlePointerDown(e, 'left')}
@@ -540,7 +540,7 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
               FORWARD 3D PAGE TURN (NEXT SPREAD)
               ===================================================================== */}
           {turnDirection === 'next' && (
-            <div className="w-full h-full min-h-[560px] sm:min-h-[620px] relative preserve-3d">
+            <div className="w-full h-full min-h-[590px] md:min-h-[660px] lg:min-h-[710px] relative preserve-3d">
               {/* Underlying Base Left Page: Spread S (stays stationary on left) */}
               <div className="absolute top-0 bottom-0 left-0 w-full md:w-1/2 z-0 border-r border-neutral-300">
                 <PageFace
@@ -640,7 +640,7 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
               BACKWARD 3D PAGE TURN (PREVIOUS SPREAD)
               ===================================================================== */}
           {turnDirection === 'prev' && (
-            <div className="w-full h-full min-h-[560px] sm:min-h-[620px] relative preserve-3d">
+            <div className="w-full h-full min-h-[590px] md:min-h-[660px] lg:min-h-[710px] relative preserve-3d">
               {/* Underlying Base Right Page: Spread S (stays stationary on right) */}
               <div className="hidden md:block absolute top-0 bottom-0 right-0 w-1/2 z-0">
                 <PageFace
