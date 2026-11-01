@@ -17,6 +17,7 @@ import { PhotoCard } from './PhotoCard';
 import { GalleryLightbox } from './GalleryLightbox';
 import { GoldButton } from '../common/GoldButton';
 import { soundFx } from '../../utils/audioFx';
+import { useTreasureHunt } from '../../hooks/useTreasureHunt';
 
 interface PhotoArchiveProps {
   onReturnToPaddock: () => void;
@@ -27,6 +28,7 @@ export const PhotoArchive: React.FC<PhotoArchiveProps> = ({
   onReturnToPaddock,
   onNavigateToVault,
 }) => {
+  const { isClueDiscovered, discoverClue } = useTreasureHunt();
   const [selectedCategory, setSelectedCategory] = useState<GalleryCategoryId>('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -94,9 +96,18 @@ export const PhotoArchive: React.FC<PhotoArchiveProps> = ({
               </button>
             )}
 
-            <span className="font-mono text-xs text-gold-400/80 px-2.5 py-1 rounded bg-black/40 border border-gold-500/20">
-              VAIBHEV #44 ARCHIVE
-            </span>
+            {/* Secret Clue 6 Trigger */}
+            <button
+              onClick={() => discoverClue('clue-6-gallery')}
+              title="Inspect Secret Maranello Photo Shutter"
+              className={`font-mono text-xs px-2.5 py-1 rounded transition-all cursor-pointer ${
+                isClueDiscovered('clue-6-gallery')
+                  ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/40 font-bold'
+                  : 'text-gold-400/80 bg-black/40 border border-gold-500/20 hover:border-gold-400 hover:text-white animate-pulse'
+              }`}
+            >
+              {isClueDiscovered('clue-6-gallery') ? 'FRAME [E] VERIFIED ✓' : 'VAIBHEV #44 ARCHIVE 🔍'}
+            </button>
           </div>
         </div>
 

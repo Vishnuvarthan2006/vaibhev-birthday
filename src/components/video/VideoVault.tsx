@@ -22,6 +22,7 @@ import { VideoCard } from './VideoCard';
 import { CinemaModal } from './CinemaModal';
 import { GoldButton } from '../common/GoldButton';
 import { soundFx } from '../../utils/audioFx';
+import { useTreasureHunt } from '../../hooks/useTreasureHunt';
 
 interface VideoVaultProps {
   onReturnToPaddock: () => void;
@@ -32,6 +33,7 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
   onReturnToPaddock,
   onNavigateToGallery,
 }) => {
+  const { isClueDiscovered, discoverClue } = useTreasureHunt();
   const [selectedCategory, setSelectedCategory] = useState<VideoCategory>('all');
   const [activeVideo, setActiveVideo] = useState<VideoEntry | null>(null);
 
@@ -101,9 +103,18 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
               </button>
             )}
 
-            <span className="font-mono text-xs text-red-400/90 px-2.5 py-1 rounded bg-black/40 border border-red-500/30">
-              CLASSIFIED TRANSMISSIONS
-            </span>
+            {/* Secret Clue 7 Trigger */}
+            <button
+              onClick={() => discoverClue('clue-7-vault')}
+              title="Decode Classified Frequency Indicator"
+              className={`font-mono text-xs px-2.5 py-1 rounded transition-all cursor-pointer ${
+                isClueDiscovered('clue-7-vault')
+                  ? 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/40 font-bold'
+                  : 'text-red-400/90 bg-black/40 border border-red-500/30 hover:border-red-400 hover:text-white animate-pulse'
+              }`}
+            >
+              {isClueDiscovered('clue-7-vault') ? 'REEL [V] DECODED ✓' : 'CLASSIFIED TRANSMISSIONS 🔍'}
+            </button>
           </div>
         </div>
 

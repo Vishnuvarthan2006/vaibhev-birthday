@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { RECIPIENT_PROFILE } from '../../data/siteConfig';
 import { soundFx } from '../../utils/audioFx';
-
+import { useTreasureHunt } from '../../hooks/useTreasureHunt';
 
 export type AppView = 'landing' | 'paddock' | 'notebook' | 'gallery' | 'vault' | 'easter-eggs';
 
@@ -28,6 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   onReplayLaunch,
 }) => {
+  const { totalDiscovered, totalClues } = useTreasureHunt();
   const [isMuted, setIsMuted] = useState<boolean>(soundFx.getIsMuted());
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
@@ -45,7 +46,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'notebook' as AppView, label: 'Notebook', icon: <BookOpen className="w-3.5 h-3.5" /> },
     { id: 'gallery' as AppView, label: 'Photo Archive', icon: <Image className="w-3.5 h-3.5" /> },
     { id: 'vault' as AppView, label: 'Video Vault', icon: <Film className="w-3.5 h-3.5" /> },
-    { id: 'easter-eggs' as AppView, label: 'Easter Eggs', icon: <Sparkles className="w-3.5 h-3.5" /> },
+    {
+      id: 'easter-eggs' as AppView,
+      label: 'Secret Garage',
+      icon: <Sparkles className="w-3.5 h-3.5" />,
+      badge: `${totalDiscovered}/${totalClues}`,
+    },
   ];
 
   return (
@@ -98,6 +104,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {item.icon}
                 </span>
                 <span>{item.label}</span>
+                {item.badge && (
+                  <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-gold-500/20 text-gold-300 font-mono ml-0.5">
+                    {item.badge}
+                  </span>
+                )}
               </button>
             );
           })}
@@ -160,6 +171,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 {item.icon}
                 <span>{item.label}</span>
+                {item.badge && (
+                  <span className="ml-auto text-[9px] px-1.5 py-0.2 rounded-full bg-gold-500/20 text-gold-300 font-mono">
+                    {item.badge}
+                  </span>
+                )}
               </button>
             );
           })}

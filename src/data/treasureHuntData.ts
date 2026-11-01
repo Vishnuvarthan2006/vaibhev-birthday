@@ -1,0 +1,122 @@
+import type { ClueDefinition } from '../types/treasureHunt';
+
+export const MASTER_VAULT_CODE = 'VAIBHEV44';
+
+export const TREASURE_CLUES: readonly ClueDefinition[] = Object.freeze([
+  {
+    id: 'clue-1-reaction',
+    number: 1,
+    title: 'Maranello Reaction Telemetry',
+    locationName: 'Secret Garage • Reaction Dyno',
+    riddleHint: 'Where starting lights extinguish and reaction times are clocked in milliseconds. Beat the lights with Lewis Hamilton reflexes.',
+    cipherLetter: 'V',
+    cipherIndex: 0,
+    symbol: '🏎️',
+    category: 'f1',
+    flavorText: 'Reflexes sharper than an apex overtake at Monza. Velocity recorded.',
+  },
+  {
+    id: 'clue-2-spider',
+    number: 2,
+    title: 'The Arachnid Tingle Frequency',
+    locationName: 'Secret Garage • Spider-Sense Radar',
+    riddleHint: 'When danger or excitement looms, your inner compass tingles. Align the 4 web frequency nodes in the garage to calm the pulse.',
+    cipherLetter: 'A',
+    cipherIndex: 1,
+    symbol: '🕸️',
+    category: 'spiderman',
+    flavorText: 'Spider-Sense dialed to 100%. Agility and instinct unlocked.',
+  },
+  {
+    id: 'clue-3-minecraft',
+    number: 3,
+    title: 'The Netherite Ingot Rune',
+    locationName: 'Secret Garage • Deep Core Mine',
+    riddleHint: 'Obsidian resists all ordinary tools, but true endurance breaks ancient debris. Strike deep into the bedrock core.',
+    cipherLetter: 'I',
+    cipherIndex: 2,
+    symbol: '⛏️',
+    category: 'minecraft',
+    flavorText: 'Ancient Debris mined. Iron will and Netherite armor forged.',
+  },
+  {
+    id: 'clue-4-brainrot',
+    number: 4,
+    title: 'Tung Tung Tung Sahur Cadence',
+    locationName: 'Secret Garage • Brainrot Soundboard',
+    riddleHint: 'Sleep deprivation hits different at 3:00 AM. Tap the sacred "Tung" rhythm button 3 times to awaken the meme protocol.',
+    cipherLetter: 'B',
+    cipherIndex: 3,
+    symbol: '🥁',
+    category: 'brainrot',
+    flavorText: 'Taluku Buluku unlocked! Certified 3:00 AM groupchat brainrot.',
+  },
+  {
+    id: 'clue-5-notebook',
+    number: 5,
+    title: 'The Epilogue Wax Seal',
+    locationName: 'The 3D Notebook • Volume 01 Epilogue',
+    riddleHint: 'Turn the physical leaves until the final chapter closes. Inspect the gold wax seal stamped upon the closing book spread.',
+    cipherLetter: 'H',
+    cipherIndex: 4,
+    symbol: '📖',
+    category: 'notebook',
+    flavorText: 'Brotherhood forged across 9 chapters. Heartfelt legacy preserved.',
+  },
+  {
+    id: 'clue-6-gallery',
+    number: 6,
+    title: 'The Classified Photo Shutter',
+    locationName: 'The Memory Archive • Telemetry Bar',
+    riddleHint: 'Every frame has a story, but one encrypted shutter carries secret Maranello telemetry coordinates beside the frame counter.',
+    cipherLetter: 'E',
+    cipherIndex: 5,
+    symbol: '📸',
+    category: 'gallery',
+    flavorText: 'Everlasting memories preserved across thousands of shared miles.',
+  },
+  {
+    id: 'clue-7-vault',
+    number: 7,
+    title: 'The Classified Transmission Reel',
+    locationName: 'The Video Vault • Classified HUD',
+    riddleHint: 'Inside the private screening theatre, examine the glowing red classified frequency indicator in the header deck.',
+    cipherLetter: 'V',
+    cipherIndex: 6,
+    symbol: '🎬',
+    category: 'vault',
+    flavorText: 'Transmission decoded. Victory lap reel confirmed on channel 44.',
+  },
+  {
+    id: 'clue-8-paddock',
+    number: 8,
+    title: 'Hamilton #44 Overdrive Telemetry',
+    locationName: 'The Paddock Dashboard • Telemetry HUD',
+    riddleHint: 'The iconic racing number of the seven-time champion rests upon the telemetry dashboard. Tap the #44 badge in triple succession.',
+    cipherLetter: '4',
+    cipherIndex: 7,
+    symbol: '🏁',
+    category: 'paddock',
+    flavorText: 'Hammer Time engaged! Car #44 telemetry synchronized with Maranello.',
+  },
+  {
+    id: 'clue-9-syndicate',
+    number: 9,
+    title: 'The Syndicate Keystone',
+    locationName: 'Operation Vaibhev Terminal • Syndicate Grid',
+    riddleHint: 'Nine friends, one unbreakable circle. Connect all 9 friend callsigns in the Mission Terminal to lock the keystone in place.',
+    cipherLetter: '4',
+    cipherIndex: 8,
+    symbol: '🤝',
+    category: 'syndicate',
+    flavorText: 'All 9 friends united. The final #44 key is locked in place.',
+  },
+]);
+
+export function getAllClues(): ClueDefinition[] {
+  return [...TREASURE_CLUES];
+}
+
+export function getClueById(id: string): ClueDefinition | undefined {
+  return TREASURE_CLUES.find((c) => c.id === id);
+}

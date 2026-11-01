@@ -135,15 +135,15 @@ export const PaddockDashboard: React.FC<PaddockDashboardProps> = ({
             onClick={() => onSelectDestination('vault')}
           />
 
-          {/* Destination 4: EASTER EGGS */}
+          {/* Destination 4: SECRET GARAGE */}
           <DestinationCard
             id="easter-eggs"
             number="04"
-            title="EASTER EGGS"
-            subtitle="Secret Maranello Garage"
-            description="Tung Tung Tung Sahur audio alarms, Netherite diamond mining clicks, Spider-Sense hazard warnings, and secret rev audio triggers hidden deep within the Maranello telemetry."
+            title="SECRET GARAGE"
+            subtitle="Operation Vaibhev • Treasure Hunt"
+            description="Maranello reaction dyno, Spider-Sense radar, Netherite mining, Tung Tung Tung Sahur soundboard, and the 9-clue syndicate treasure hunt to unlock the grand final vault."
             icon={<Sparkles className="w-6 h-6 text-rose-400" />}
-            badgeText="TOP SECRET"
+            badgeText="9 CLUES TO SOLVE"
             badgeVariant="ferrari"
             accentTheme="spider"
             onClick={() => onSelectDestination('easter-eggs')}

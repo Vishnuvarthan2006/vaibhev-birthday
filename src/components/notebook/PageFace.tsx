@@ -4,6 +4,7 @@ import { PolaroidPhoto } from './PolaroidPhoto';
 import { RECIPIENT_PROFILE } from '../../data/siteConfig';
 import { NOTEBOOK_ENTRIES } from '../../data/notebookData';
 import { GoldButton } from '../common/GoldButton';
+import { useTreasureHunt } from '../../hooks/useTreasureHunt';
 import {
   ArrowRight,
   BookOpen,
@@ -40,6 +41,7 @@ export const PageFace: React.FC<PageFaceProps> = ({
   onReshuffle,
   onOpenPhoto,
 }) => {
+  const { isClueDiscovered, discoverClue } = useTreasureHunt();
 
   const totalSpreads = totalEntries + 2;
   const isCover = spreadIndex === 0;
@@ -184,11 +186,22 @@ export const PageFace: React.FC<PageFaceProps> = ({
               ))}
             </div>
 
-            <div className="mt-4 p-2.5 rounded bg-gold-500/10 border border-gold-600/30 flex items-center gap-2.5">
-              <Award className="w-4 h-4 text-gold-700 shrink-0" />
-              <p className="font-mono text-[11px] text-neutral-700 leading-tight">
-                All 9 chapters preserved. The bond between Vaibhev and the squad is certified forever.
-              </p>
+            <div className="mt-4 p-2.5 rounded bg-gold-500/10 border border-gold-600/30 flex items-center justify-between gap-2.5">
+              <div className="flex items-center gap-2">
+                <Award className="w-4 h-4 text-gold-700 shrink-0" />
+                <p className="font-mono text-[11px] text-neutral-700 leading-tight">
+                  All 9 chapters preserved. The bond between Vaibhev and the squad is certified forever.
+                </p>
+              </div>
+
+              {/* Secret Clue 5 Wax Seal Trigger */}
+              <button
+                onClick={() => discoverClue('clue-5-notebook')}
+                title="Inspect Secret Scuderia Wax Seal"
+                className="shrink-0 px-2.5 py-1 rounded-full border border-gold-600/40 bg-gold-500/20 text-gold-900 font-mono text-[10px] font-bold tracking-wider hover:bg-gold-500/30 transition-all cursor-pointer shadow-xs animate-pulse"
+              >
+                {isClueDiscovered('clue-5-notebook') ? 'SEAL [H] VERIFIED ✓' : 'INSPECT SEAL 🔍'}
+              </button>
             </div>
           </div>
 

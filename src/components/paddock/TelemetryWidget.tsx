@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Gauge, Zap, Flame, ShieldAlert } from 'lucide-react';
 import { RECIPIENT_PROFILE } from '../../data/siteConfig';
-
+import { useTreasureHunt } from '../../hooks/useTreasureHunt';
+import { soundFx } from '../../utils/audioFx';
 
 export const TelemetryWidget: React.FC = () => {
+  const { isClueDiscovered, discoverClue } = useTreasureHunt();
+  const [clickCount, setClickCount] = useState<number>(0);
+
+  const handleCarNumberClick = () => {
+    soundFx.playUiClick();
+    const next = clickCount + 1;
+    setClickCount(next);
+
+    if (next >= 3) {
+      discoverClue('clue-8-paddock');
+      setClickCount(0);
+    }
+  };
+
   return (
     <div className="carbon-panel rounded-xl p-5 sm:p-6 border border-white/[0.08] relative overflow-hidden">
       {/* Subtle top indicator bar */}
@@ -20,9 +35,25 @@ export const TelemetryWidget: React.FC = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             TELEMETRY LINK: ONLINE
           </span>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-ferrari-500/10 text-red-400 border border-ferrari-500/20">
-            CAR #{RECIPIENT_PROFILE.driverNumber}
-          </span>
+
+          {/* Secret Clue 8 Trigger: Triple Click Car #44 */}
+          <button
+            onClick={handleCarNumberClick}
+            title={
+              isClueDiscovered('clue-8-paddock')
+                ? 'Clue 8 [4] Decoded!'
+                : `Tap 3 times to sync Overdrive (${clickCount}/3)`
+            }
+            className={`text-[10px] font-mono px-2 py-0.5 rounded transition-all cursor-pointer ${
+              isClueDiscovered('clue-8-paddock')
+                ? 'bg-emerald-950/40 text-emerald-400 border border-emerald-500/40 font-bold'
+                : 'bg-ferrari-500/10 text-red-400 border border-ferrari-500/20 hover:border-red-400 hover:scale-105 active:scale-95'
+            }`}
+          >
+            {isClueDiscovered('clue-8-paddock')
+              ? 'CAR #44 [4] SYNCED ✓'
+              : `CAR #${RECIPIENT_PROFILE.driverNumber} ${clickCount > 0 ? `(${clickCount}/3)` : '🔍'}`}
+          </button>
         </div>
       </div>
 

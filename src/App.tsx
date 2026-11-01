@@ -3,10 +3,11 @@ import { AmbientBackground } from './components/layout/AmbientBackground';
 import { Navbar, type AppView } from './components/layout/Navbar';
 import { CinematicLanding } from './components/landing/CinematicLanding';
 import { PaddockDashboard } from './components/paddock/PaddockDashboard';
-import { SectionPlaceholder } from './components/layout/SectionPlaceholder';
 import { NotebookViewer } from './components/notebook/NotebookViewer';
 import { PhotoArchive } from './components/gallery/PhotoArchive';
 import { VideoVault } from './components/video/VideoVault';
+import { SecretGarage } from './components/garage/SecretGarage';
+import { ClueFoundNotification } from './components/common/ClueFoundNotification';
 
 const VALID_VIEWS: AppView[] = ['landing', 'paddock', 'notebook', 'gallery', 'vault', 'easter-eggs'];
 
@@ -102,13 +103,15 @@ export const App: React.FC = () => {
         )}
 
         {currentView === 'easter-eggs' && (
-          <SectionPlaceholder
-            sectionId={currentView}
+          <SecretGarage
             onReturnToPaddock={() => navigateTo('paddock')}
             onReplayLaunch={handleReplayLaunch}
           />
         )}
       </main>
+
+      {/* Real-time Clue Discovery Notification across all views */}
+      <ClueFoundNotification onOpenJournal={() => navigateTo('easter-eggs')} />
 
       {/* Subtle Paddock Footer (visible across all views) */}
       <footer className="relative z-10 border-t border-white/[0.06] bg-obsidian-950/80 px-6 py-4 text-center">
