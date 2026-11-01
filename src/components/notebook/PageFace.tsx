@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 
 interface PageFaceProps {
-
   spreadIndex: number;
   side: 'left' | 'right';
   entries: NotebookEntry[];
@@ -27,8 +26,6 @@ interface PageFaceProps {
   onRestart?: () => void;
   onReshuffle?: () => void;
   onOpenPhoto?: (photoIdx: number, friendEntry: NotebookEntry) => void;
-  isMobileSinglePage?: boolean;
-  mobileTab?: 'letter' | 'photos';
 }
 
 export const PageFace: React.FC<PageFaceProps> = ({
@@ -42,9 +39,8 @@ export const PageFace: React.FC<PageFaceProps> = ({
   onRestart,
   onReshuffle,
   onOpenPhoto,
-  isMobileSinglePage = false,
-  mobileTab = 'letter',
 }) => {
+
   const totalSpreads = totalEntries + 2;
   const isCover = spreadIndex === 0;
   const isEnding = spreadIndex === totalSpreads - 1;
@@ -280,8 +276,9 @@ export const PageFace: React.FC<PageFaceProps> = ({
     .filter(Boolean);
 
   // Left Page: The Handwritten Letter
-  if (side === 'left' || (isMobileSinglePage && mobileTab === 'letter')) {
+  if (side === 'left') {
     return (
+
       <div className="w-full h-full paper-page book-spine-left p-6 sm:p-8 md:p-10 flex flex-col justify-between text-neutral-900 select-none relative overflow-hidden">
         <div className="absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-gold-600/50" />
         <div className="absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-gold-600/50" />

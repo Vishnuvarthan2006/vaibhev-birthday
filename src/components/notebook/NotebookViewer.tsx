@@ -386,32 +386,34 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
         </div>
       </div>
 
-      {/* Mobile Tab Switcher (Visible only on small screens) */}
-      <div className="md:hidden flex items-center justify-center gap-2 mb-4 w-full">
-        <button
-          onClick={() => setMobileTab('letter')}
-          className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
-            mobileTab === 'letter'
-              ? 'bg-gold-500 text-obsidian-950 shadow-md'
-              : 'bg-obsidian-900 text-gray-300 border border-white/10'
-          }`}
-        >
-          <FileText className="w-3.5 h-3.5" />
-          <span>WRITTEN LETTER</span>
-        </button>
+      {/* Mobile Tab Switcher (Visible only on small screens during friend chapters) */}
+      {!isCover && !isEnding && (
+        <div className="md:hidden flex items-center justify-center gap-2 mb-4 w-full">
+          <button
+            onClick={() => setMobileTab('letter')}
+            className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
+              mobileTab === 'letter'
+                ? 'bg-gold-500 text-obsidian-950 shadow-md'
+                : 'bg-obsidian-900 text-gray-300 border border-white/10'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>WRITTEN LETTER</span>
+          </button>
 
-        <button
-          onClick={() => setMobileTab('photos')}
-          className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
-            mobileTab === 'photos'
-              ? 'bg-gold-500 text-obsidian-950 shadow-md'
-              : 'bg-obsidian-900 text-gray-300 border border-white/10'
-          }`}
-        >
-          <Camera className="w-3.5 h-3.5" />
-          <span>SCRAPBOOK PHOTOS</span>
-        </button>
-      </div>
+          <button
+            onClick={() => setMobileTab('photos')}
+            className={`flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
+              mobileTab === 'photos'
+                ? 'bg-gold-500 text-obsidian-950 shadow-md'
+                : 'bg-obsidian-900 text-gray-300 border border-white/10'
+            }`}
+          >
+            <Camera className="w-3.5 h-3.5" />
+            <span>SCRAPBOOK PHOTOS</span>
+          </button>
+        </div>
+      )}
 
       {/* =========================================================================
           PHYSICAL 3D OPEN-BOOK STAGE
@@ -438,12 +440,12 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
               ===================================================================== */}
           {turnDirection === null && (
             <div className="w-full h-full min-h-[560px] sm:min-h-[620px] grid grid-cols-1 md:grid-cols-2">
-              {/* Left Page Half */}
+              {/* Left Page Half (Always renders side="left": letter / cover emblem / ending signatures) */}
               <div
                 onMouseDown={(e) => handlePointerDown(e, 'left')}
                 onTouchStart={(e) => handlePointerDown(e, 'left')}
                 className={`w-full h-full relative cursor-grab border-b md:border-b-0 md:border-r border-neutral-300 ${
-                  mobileTab === 'photos' ? 'hidden md:block' : 'block'
+                  !isCover && !isEnding && mobileTab === 'photos' ? 'hidden md:block' : 'block'
                 }`}
               >
                 <PageFace
@@ -457,15 +459,15 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
                   onRestart={() => {
                     soundFx.playPageTurn();
                     setCurrentSpread(0);
+                    setMobileTab('letter');
                   }}
                   onReshuffle={() => {
                     soundFx.playUiClick();
                     reshuffle();
                     setCurrentSpread(0);
+                    setMobileTab('letter');
                   }}
                   onOpenPhoto={handleOpenPhoto}
-                  isMobileSinglePage={true}
-                  mobileTab={mobileTab}
                 />
 
                 {/* Visual Grab & Drag Corner Peel Handle (Left / Previous) */}
@@ -485,12 +487,12 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
                 )}
               </div>
 
-              {/* Right Page Half */}
+              {/* Right Page Half (Always renders side="right": photos / cover prologue / ending message) */}
               <div
                 onMouseDown={(e) => handlePointerDown(e, 'right')}
                 onTouchStart={(e) => handlePointerDown(e, 'right')}
                 className={`w-full h-full relative cursor-grab ${
-                  mobileTab === 'letter' ? 'hidden md:block' : 'block'
+                  !isCover && !isEnding && mobileTab === 'letter' ? 'hidden md:block' : 'block'
                 }`}
               >
                 <PageFace
@@ -504,15 +506,15 @@ export const NotebookViewer: React.FC<NotebookViewerProps> = ({ onReturnToPaddoc
                   onRestart={() => {
                     soundFx.playPageTurn();
                     setCurrentSpread(0);
+                    setMobileTab('letter');
                   }}
                   onReshuffle={() => {
                     soundFx.playUiClick();
                     reshuffle();
                     setCurrentSpread(0);
+                    setMobileTab('letter');
                   }}
                   onOpenPhoto={handleOpenPhoto}
-                  isMobileSinglePage={true}
-                  mobileTab={mobileTab}
                 />
 
                 {/* Visual Grab & Drag Corner Peel Handle (Right / Next) */}
