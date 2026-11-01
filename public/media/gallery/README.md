@@ -1,10 +1,8 @@
-# General Photo Gallery
+# Photo Archive Media Folder
 
-Place shared group photographs, car photos, memories, and candid shots here.
+Place all general photo archive images here.
 
-Example:
-- `/media/gallery/f1-monza-trip.jpg`
-- `/media/gallery/college-squad.jpg`
-- `/media/gallery/car-meet.jpg`
-
-Reference these paths in `src/data/galleryData.ts`.
+- Supported formats: `.jpg`, `.jpeg`, `.png`, `.webp`
+- Recommended resolution: `1920x1080` or `1920x1440`
+- To register a photo in the gallery, add an entry to `src/data/galleryData.ts`.
+- See `src/data/MEDIA_CONTRIBUTION_GUIDE.md` for full instructions.

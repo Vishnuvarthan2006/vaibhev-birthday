@@ -1,3 +1,18 @@
+export type VideoCategory =
+  | 'all'
+  | 'tribute'
+  | 'wishes'
+  | 'bloopers'
+  | 'racing'
+  | 'memes'
+  | (string & {});
+
+export interface VideoCategoryMeta {
+  id: VideoCategory;
+  label: string;
+  description?: string;
+}
+
 export interface VideoEntry {
   id: string;
   title: string;
@@ -5,6 +20,10 @@ export interface VideoEntry {
   videoUrl: string;
   posterUrl?: string;
   duration?: string;
-  category?: 'tribute' | 'wishes' | 'bloopers' | 'racing' | 'memes';
+  contributor?: string;
+  category?: VideoCategory;
+  dateAdded?: string;
   featured?: boolean;
+  resolution?: string;
+  aspectRatio?: '16/9' | '9/16' | '4/3';
 }

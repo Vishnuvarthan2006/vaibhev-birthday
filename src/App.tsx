@@ -1,25 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AmbientBackground } from './components/layout/AmbientBackground';
 import { Navbar, type AppView } from './components/layout/Navbar';
 import { CinematicLanding } from './components/landing/CinematicLanding';
 import { PaddockDashboard } from './components/paddock/PaddockDashboard';
 import { SectionPlaceholder } from './components/layout/SectionPlaceholder';
 import { NotebookViewer } from './components/notebook/NotebookViewer';
+import { PhotoArchive } from './components/gallery/PhotoArchive';
+import { VideoVault } from './components/video/VideoVault';
+
+const VALID_VIEWS: AppView[] = ['landing', 'paddock', 'notebook', 'gallery', 'vault', 'easter-eggs'];
 
 export const App: React.FC = () => {
-  // Current view state: 'landing' initially for the F1 start experience
-  const [currentView, setCurrentView] = useState<AppView>('landing');
+  // Read initial view from URL hash if user refreshed on a specific sector
+  const [currentView, setCurrentView] = useState<AppView>(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '') as AppView;
+      if (VALID_VIEWS.includes(hash)) {
+        return hash;
+      }
+    }
+    return 'landing';
+  });
+
+  // Sync state with browser hash navigation (handles back/forward/refresh)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '') as AppView;
+      if (VALID_VIEWS.includes(hash)) {
+        setCurrentView(hash);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // Update hash when navigating to support browser refresh without losing view
+  const navigateTo = (view: AppView) => {
+    setCurrentView(view);
+    if (view === 'landing') {
+      window.history.replaceState(null, '', window.location.pathname);
+    } else {
+      window.location.hash = view;
+    }
+  };
 
   const handleEnterPaddock = () => {
-    setCurrentView('paddock');
+    navigateTo('paddock');
   };
 
   const handleSelectDestination = (destId: 'notebook' | 'gallery' | 'vault' | 'easter-eggs') => {
-    setCurrentView(destId);
+    navigateTo(destId);
   };
 
   const handleReplayLaunch = () => {
-    setCurrentView('landing');
+    navigateTo('landing');
   };
 
   return (
@@ -30,7 +65,7 @@ export const App: React.FC = () => {
       {currentView !== 'landing' && (
         <Navbar
           currentView={currentView}
-          onNavigate={(view) => setCurrentView(view)}
+          onNavigate={navigateTo}
           onReplayLaunch={handleReplayLaunch}
         />
       )}
@@ -49,20 +84,31 @@ export const App: React.FC = () => {
         )}
 
         {currentView === 'notebook' && (
-          <NotebookViewer onReturnToPaddock={() => setCurrentView('paddock')} />
+          <NotebookViewer onReturnToPaddock={() => navigateTo('paddock')} />
         )}
 
-        {(currentView === 'gallery' ||
-          currentView === 'vault' ||
-          currentView === 'easter-eggs') && (
+        {currentView === 'gallery' && (
+          <PhotoArchive
+            onReturnToPaddock={() => navigateTo('paddock')}
+            onNavigateToVault={() => navigateTo('vault')}
+          />
+        )}
+
+        {currentView === 'vault' && (
+          <VideoVault
+            onReturnToPaddock={() => navigateTo('paddock')}
+            onNavigateToGallery={() => navigateTo('gallery')}
+          />
+        )}
+
+        {currentView === 'easter-eggs' && (
           <SectionPlaceholder
             sectionId={currentView}
-            onReturnToPaddock={() => setCurrentView('paddock')}
+            onReturnToPaddock={() => navigateTo('paddock')}
             onReplayLaunch={handleReplayLaunch}
           />
         )}
       </main>
-
 
       {/* Subtle Paddock Footer (visible across all views) */}
       <footer className="relative z-10 border-t border-white/[0.06] bg-obsidian-950/80 px-6 py-4 text-center">

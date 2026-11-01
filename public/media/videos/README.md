@@ -1,11 +1,8 @@
-# Birthday Videos & Vault
+# Video Vault Media Folder
 
-Place group video messages, funny clips, screen recordings, or montage videos here.
+Place all local video files and thumbnail images here.
 
-Example:
-- `/media/videos/group-wish.mp4`
-- `/media/videos/f1-edit.mp4`
-- `/media/videos/brainrot-compilation.mp4`
-
-Reference these paths in `src/data/videoVaultData.ts`.
-Supported formats: `.mp4`, `.webm`.
+- Supported video formats: `.mp4`, `.webm` (H.264 video codec recommended)
+- Recommended resolution: 1080p (1920x1080)
+- To register a video in the vault, add an entry to `src/data/videoData.ts`.
+- See `src/data/MEDIA_CONTRIBUTION_GUIDE.md` for full instructions.
