@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, ZoomIn, Calendar, User } from 'lucide-react';
+import { Camera, ZoomIn } from 'lucide-react';
 import type { GalleryPhoto } from '../../types/gallery';
 import { soundFx } from '../../utils/audioFx';
 
@@ -16,7 +16,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
     <div
       tabIndex={0}
       role="button"
-      aria-label={`View photo: ${photo.title}`}
+      aria-label="View photo"
       onClick={() => {
         soundFx.playUiClick();
         onClick();
@@ -35,12 +35,12 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
         <div className="w-12 h-1.5 -rotate-45 bg-gradient-to-r from-red-600 to-amber-500 transform -translate-x-3 translate-y-1 shadow-sm" />
       </div>
 
-      {/* Image Container: adapts naturally to the image dimensions without harsh cropping */}
+      {/* Image Container: clean presentation displaying ONLY the photo */}
       <div className="relative w-full overflow-hidden bg-[#141217] flex items-center justify-center">
         {!imageError ? (
           <img
             src={photo.imageUrl}
-            alt={photo.title}
+            alt="Captured memory"
             loading="lazy"
             onError={() => setImageError(true)}
             className="w-full h-auto max-h-[75vh] object-contain block transition-transform duration-700 ease-out group-hover:scale-[1.02]"
@@ -57,9 +57,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
               <div className="w-10 h-10 rounded-full border border-gold-500/30 bg-gold-500/10 flex items-center justify-center text-gold-400 mb-2">
                 <Camera className="w-5 h-5" />
               </div>
-              <h4 className="font-display text-xs sm:text-sm font-bold text-white line-clamp-1">
-                {photo.title}
-              </h4>
               <p className="font-mono text-[10px] text-gold-400/80 mt-1 max-w-[200px] truncate">
                 {photo.imageUrl}
               </p>
@@ -71,45 +68,10 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
           </div>
         )}
 
-        {/* Hover Overlay with Metadata & Zoom Icon */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-3.5 sm:p-4 z-10 pointer-events-none">
-          {/* Top badges */}
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-wider px-2.5 py-1 rounded-md bg-black/80 border border-gold-500/40 text-gold-300 backdrop-blur-xs flex items-center gap-1.5 font-bold">
-              <Camera className="w-3 h-3" />
-              {photo.dateOrEvent || 'ARCHIVE'}
-            </span>
-
-            <div className="w-8 h-8 rounded-full bg-gold-500/20 border border-gold-400/60 flex items-center justify-center text-gold-300 shadow-md">
-              <ZoomIn className="w-4 h-4" />
-            </div>
-          </div>
-
-          {/* Bottom Caption & Contributor */}
-          <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-            <h3 className="font-display text-base sm:text-lg font-bold text-white leading-tight">
-              {photo.title}
-            </h3>
-            {photo.description && (
-              <p className="text-xs sm:text-sm text-gray-300 line-clamp-2 mt-1">
-                {photo.description}
-              </p>
-            )}
-
-            <div className="flex items-center gap-3.5 mt-2 font-mono text-xs text-gray-400">
-              {photo.contributor && (
-                <span className="flex items-center gap-1.5 text-gold-400/90 truncate font-semibold">
-                  <User className="w-3.5 h-3.5 text-gold-400" />
-                  {photo.contributor}
-                </span>
-              )}
-              {photo.dateOrEvent && (
-                <span className="flex items-center gap-1.5 truncate">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {photo.dateOrEvent}
-                </span>
-              )}
-            </div>
+        {/* Minimal Hover Overlay with Enlarge Button Only */}
+        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 pointer-events-none">
+          <div className="w-12 h-12 rounded-full bg-black/80 border border-gold-400 text-gold-300 flex items-center justify-center shadow-lg transform transition-transform duration-300 group-hover:scale-110">
+            <ZoomIn className="w-5 h-5" />
           </div>
         </div>
       </div>

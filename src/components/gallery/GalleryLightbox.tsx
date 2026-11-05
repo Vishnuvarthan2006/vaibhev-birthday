@@ -106,6 +106,17 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
       {/* Top Bar: Controls & Counter */}
       <div className="flex items-center justify-between px-4 sm:px-8 py-4 border-b border-white/[0.08] bg-obsidian-950/80 z-20">
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              soundFx.playUiClick();
+              onClose();
+            }}
+            title="Back to Photo Archive"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold-500/40 bg-gold-500/10 text-gold-300 hover:bg-gold-500/20 hover:text-white transition-all text-xs font-mono font-bold tracking-wider cursor-pointer"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            <span>BACK</span>
+          </button>
           <span className="font-mono text-xs text-gold-400 font-bold uppercase tracking-widest px-2.5 py-1 rounded-sm border border-gold-500/30 bg-gold-500/10">
             FRAME {currentIndex + 1} OF {photos.length}
           </span>

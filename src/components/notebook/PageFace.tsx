@@ -290,54 +290,68 @@ export const PageFace: React.FC<PageFaceProps> = ({
 
   // Left Page: The Handwritten Letter
   if (side === 'left') {
+    const totalCharCount = entry.writtenMessage.length;
+    // Calculate adaptive font size and spacing based on text length to fit perfectly on the page
+    const handwritingSizeClass =
+      totalCharCount > 700
+        ? 'text-sm sm:text-base leading-snug space-y-2'
+        : totalCharCount > 450
+          ? 'text-base sm:text-lg md:text-xl leading-relaxed space-y-2.5'
+          : totalCharCount > 250
+            ? 'text-lg sm:text-xl md:text-2xl leading-relaxed space-y-3'
+            : 'text-xl sm:text-2xl md:text-3xl leading-relaxed space-y-3.5';
+
     return (
-      <div className="w-full h-full paper-page book-spine-left p-5 sm:p-8 md:p-9 flex flex-col justify-between text-neutral-900 select-none relative overflow-hidden">
+      <div className="w-full h-full paper-page book-spine-left p-5 sm:p-7 md:p-8 flex flex-col justify-between text-neutral-900 select-none relative overflow-hidden">
         <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-gold-600/50" />
         <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-gold-600/50" />
 
-        <div>
-          <div className="flex items-center justify-between text-xs sm:text-sm font-mono text-neutral-500 border-b border-neutral-300/80 pb-2.5 mb-3">
-            <span className="uppercase tracking-widest font-semibold text-gold-700">
-              CHAPTER {chapterIdx + 1} OF {totalEntries}
-            </span>
-            <span className="text-xs uppercase tracking-wider text-neutral-400">
-              SLOT: {entry.id}
-            </span>
-          </div>
-
-          <div className="mb-3">
-            <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-neutral-950 tracking-tight leading-snug">
-              {entry.chapterTitle || `Chapter 0${chapterIdx + 1}`}
-            </h2>
-
-            <div className="flex items-center gap-2 mt-1">
-              <span className="font-display font-semibold text-sm sm:text-base text-neutral-800">
-                {entry.friendName}
+        <div className="flex-1 flex flex-col justify-between overflow-hidden">
+          <div>
+            <div className="flex items-center justify-between text-xs sm:text-sm font-mono text-neutral-500 border-b border-neutral-300/80 pb-2 mb-2.5">
+              <span className="uppercase tracking-widest font-semibold text-gold-700">
+                CHAPTER {chapterIdx + 1} OF {totalEntries}
               </span>
-              {entry.callsign && (
-                <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-neutral-200 text-neutral-700 border border-neutral-300 font-bold">
-                  {entry.callsign}
+              <span className="text-xs uppercase tracking-wider text-neutral-400">
+                SLOT: {entry.id}
+              </span>
+            </div>
+
+            <div className="mb-2">
+              <h2 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-neutral-950 tracking-tight leading-snug">
+                {entry.chapterTitle || `Chapter 0${chapterIdx + 1}`}
+              </h2>
+
+              <div className="flex items-center gap-2 mt-1">
+                <span className="font-display font-semibold text-xs sm:text-sm text-neutral-800">
+                  {entry.friendName}
                 </span>
-              )}
+                {entry.callsign && (
+                  <span className="text-[10px] sm:text-xs font-mono px-2 py-0.5 rounded-full bg-neutral-200 text-neutral-700 border border-neutral-300 font-bold">
+                    {entry.callsign}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="font-handwriting text-xl sm:text-2xl md:text-3xl text-neutral-850 leading-relaxed space-y-3 my-3 max-h-[52vh] md:max-h-none overflow-y-auto pr-1">
+          {/* Adaptive font message container */}
+          <div className={`font-handwriting text-neutral-850 my-auto py-1 ${handwritingSizeClass}`}>
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
 
           {entry.closingNote && (
-            <div className="mt-3 pt-2.5 border-t border-neutral-300/60 text-right">
-              <p className="font-handwriting text-2xl sm:text-3xl text-gold-800 font-bold">
+            <div className="pt-2 border-t border-neutral-300/60 text-right shrink-0">
+              <p className="font-handwriting text-xl sm:text-2xl text-gold-800 font-bold">
                 {entry.closingNote}
               </p>
             </div>
           )}
         </div>
 
-        <div className="pt-3 border-t border-neutral-300/80 flex items-center justify-between text-xs font-mono text-neutral-400">
+        <div className="pt-2.5 mt-2 border-t border-neutral-300/80 flex items-center justify-between text-xs font-mono text-neutral-400 shrink-0">
           <span>VAIBHEV • NINE CHAPTERS</span>
           <span>PAGE {String((chapterIdx + 1) * 2 - 1).padStart(2, '0')}</span>
         </div>

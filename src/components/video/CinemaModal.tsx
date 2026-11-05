@@ -249,8 +249,19 @@ export const CinemaModal: React.FC<CinemaModalProps> = ({
         {/* Cinema Film Strip Header */}
         <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 border-b border-white/[0.08] bg-obsidian-900/90 z-20">
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                soundFx.playUiClick();
+                onClose();
+              }}
+              title="Back to Video Vault"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gold-500/40 bg-gold-500/10 text-gold-300 hover:bg-gold-500/20 hover:text-white transition-all text-xs font-mono font-bold tracking-wider cursor-pointer mr-1"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>BACK</span>
+            </button>
             <div className="w-3 h-3 rounded-full bg-red-600 animate-pulse shadow-[0_0_8px_rgba(220,38,38,0.8)]" />
-            <span className="font-mono text-xs sm:text-sm text-gold-400 font-bold uppercase tracking-widest">
+            <span className="font-mono text-xs sm:text-sm text-gold-400 font-bold uppercase tracking-widest hidden sm:inline">
               CINEMA SCREENING ROOM • MARANELLO TELEMETRY
             </span>
           </div>

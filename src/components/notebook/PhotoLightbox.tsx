@@ -50,6 +50,14 @@ export const PhotoLightbox: React.FC<PhotoLightboxProps> = ({
         {/* Top Header / Close */}
         <div className="w-full flex items-center justify-between text-white mb-3">
           <div className="flex items-center gap-2">
+            <button
+              onClick={onClose}
+              title="Back to Notebook"
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold-500/40 bg-gold-500/10 text-gold-300 hover:bg-gold-500/20 hover:text-white transition-all text-xs font-mono font-bold tracking-wider cursor-pointer mr-1"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>BACK</span>
+            </button>
             <span className="font-mono text-xs text-gold-400 font-semibold px-2.5 py-0.5 rounded bg-gold-500/10 border border-gold-500/20">
               PHOTO {currentIndex + 1} OF {photos.length}
             </span>
