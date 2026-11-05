@@ -53,6 +53,13 @@ May this year bring you absolute P1 speed, zero mechanical penalties, and unlimi
         rotationDeg: 2.5,
         aspectRatio: 'portrait',
       },
+      {
+        id: 'f01-p3',
+        url: '/media/notebook/friend-01/photo-3.jpg',
+        caption: 'Pit wall strategist at work',
+        rotationDeg: -1.5,
+        aspectRatio: 'landscape',
+      },
     ],
     accentStyle: 'ferrari-red',
     stickerBadge: 'P1 FINISH',
