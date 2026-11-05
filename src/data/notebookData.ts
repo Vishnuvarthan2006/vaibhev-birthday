@@ -255,6 +255,13 @@ You face every hurdle with calm confidence and high spirits. May your next year 
         rotationDeg: -1.5,
         aspectRatio: 'portrait',
       },
+      {
+        id: 'f07-p2',
+        url: '/media/notebook/friend-07/photo-2.jpg',
+        caption: 'Monza memories & brotherhood',
+        rotationDeg: 2,
+        aspectRatio: 'portrait',
+      },
     ],
     accentStyle: 'gold',
     stickerBadge: 'GOLD STANDARD',
