@@ -68,17 +68,17 @@ May this year bring you absolute P1 speed, zero mechanical penalties, and unlimi
     id: 'friend-02',
     friendNumber: 2,
     friendName: 'Santhosh',
-    chapterTitle: 'Chapter II: Still We Rise',
-    callsign: 'Team Principal',
-    tagline: 'Still we rise — Scuderia edition.',
-    writtenMessage: `Vaibhev, my brother!
+    chapterTitle: 'Chapter II: The Photo Boi Chronicles',
+    callsign: 'The Photo Boi',
+    tagline: 'Preserving the craziest moments from behind the lens.',
+    writtenMessage: `Happy Birthday, Vaibee!!
 
-Watching you navigate life with the precision of Lewis Hamilton hitting the apex at Copse corner is always inspiring. You bring that same relentless drive, natural style, and luxury mindset to every single room you walk into.
+You have always been the person capturing all the moments from behind the camera and saving them up. Without you, a lot of things would have just remained memories. The future generations gotta know the crazy shit we did back in the days laa.
 
-Thank you for always setting high standards and reminding all of us to stay hungry, humble, and authentic. No matter how wild the journey gets, you always keep your eyes on the podium.
+Thank you soo much for that! After every ethnic wear, every single person waits for your Drive link, and that's how you got your nickname, THE PHOTO BOI. You even get a free pass to stalk strangers as well (jk jk).
 
-Wishing you a legendary year ahead. 24k gold standard only, always!`,
-    closingNote: 'Hammer time every day, — Santhosh',
+Anywayss, HAPPIEST BDAY!! You're old now as well... prolly, you'd be the only person with a better sense of humour than me. Keep smiling and making others laugh. Have the best year ahead!!`,
+    closingNote: 'Keep smiling & making us laugh, — Santhosh',
     photos: [
       {
         id: 'f02-p1',
@@ -157,17 +157,15 @@ Wishing you endless health, epic adventures, and a year that feels like an IMAX 
     id: 'friend-04',
     friendNumber: 4,
     friendName: 'Deepthi',
-    chapterTitle: 'Chapter IV: Forged in Netherite',
-    callsign: 'Netherite Master Architect',
-    tagline: 'Crafting legendary memories since day one.',
-    writtenMessage: `Happy Birthday, Vaibhev!
+    chapterTitle: 'Chapter IV: 1234 Pastimes & Peaceful Vibes',
+    callsign: 'Java Lab Escape Artist',
+    tagline: 'Quietly observing, making memories that last.',
+    writtenMessage: `Happy birthday Vaibhev! I wish you a great and successful year ahead.
 
-You are that rare friend who is genuinely forged like full Netherite armor — resilient, top-tier, and completely impervious to the lava of life's daily stress.
+You are someone who seems quiet but observes everything around you. Us playing 1234 games when other ecm peeps are in java lab will be my all time favourite pastime.
 
-Whether we are grinding through late-night sessions or building elaborate memories together, you always bring 64 blocks of positive energy and unwavering loyalty.
-
-May your upcoming year be packed with diamonds, rare loot, and flawless builds in whatever you pursue!`,
-    closingNote: 'Unbreakable III enchanted, — Deepthi',
+Let us make more fun memories together and stay in touch even after college ends.`,
+    closingNote: 'Peace, Dpt',
     photos: [
       {
         id: 'f04-p1',
@@ -225,17 +223,21 @@ May your year be completely free of brain rot and packed with massive personal w
     id: 'friend-06',
     friendNumber: 6,
     friendName: 'Savitha',
-    chapterTitle: 'Chapter VI: The High-Downforce Brotherhood',
-    callsign: 'Aerodynamicist & Co-Pilot',
-    tagline: 'Downforce maximum, drag minimum.',
-    writtenMessage: `Happiest Birthday, Vaibhev!
+    chapterTitle: 'Chapter VI: The Gopal Chronicles & Kulfi Memories',
+    callsign: 'Kulfi Mukkiyam Bigiluhh',
+    tagline: 'Always here for your endless rants.',
+    writtenMessage: `Hey mannnn!!! How did it alll starttttt.... I'm likee looking backk.... In the search I was so curious that I went to WhatsApp... Our first chat.... I have nooo clue what it is u sent me... a couple of pics and videos lolll on 21 Aug 2024.... Uffff we hv known each other for 2 years already...and the second one was 😂... I told i hv given u linked in req.... Were we that professional lol 😭😂...
 
-Cruising through life with you as a co-pilot is an absolute masterclass in style, wit, and genuine warmth. Your passion for cars, mechanical excellence, and fine details inspires everyone to take pride in what they do.
+Anywayssss....u are the person who is quiet but when it comes to roasting no one can beat you lol.... You throw bangersss ✨
+And the way you always keep a soft smile... Please carry it with you inimelum in your life....
+We had so much beautiful memories together...
+Idk why I just got reminded of the kulfi memory 😅😂...
+"Kulfi ah pudi daaa... Kulfi mukkiyam bigiluhh"...
+Don't feel alone or left out....
+I'm always here for you... And yess I'm always the person who you can tell endless rants... I won't ghost you... I mean who can 😂✨....
 
-Here is to roaring exhausts, open highway road trips, and countless more memories created in the fast lane.
-
-Have a magnificent celebration today!`,
-    closingNote: 'Eyes on the road, pedal down, — Savitha',
+Happyyy happyyyy happyyy birthdayy Gopallll (idk why I came up with this name till date 😂).... Always be happy and yayyy roasting all of us 💖✨😂`,
+    closingNote: 'Always here for you, — Savitha (Gopal\'s #1 fan ✨)',
     photos: [
       {
         id: 'f06-p1',
@@ -273,15 +275,17 @@ Have a magnificent celebration today!`,
     id: 'friend-07',
     friendNumber: 7,
     friendName: 'Sathiya',
-    chapterTitle: 'Chapter VII: Curva Grande at Full Throttle',
-    callsign: 'Monza Telemetry Lead',
-    tagline: 'Flat out through the Curva Grande.',
-    writtenMessage: `Dear Vaibhev,
+    chapterTitle: 'Chapter VII: Curva Grande & Mallu Buddy Tech Talks',
+    callsign: 'Tech & Automobile Co-Pilot',
+    tagline: 'Tech yaps, automobile talks, and unforgettable car trips.',
+    writtenMessage: `Yoo Happy Birthdayy Vaibhev!!
 
-Every championship-winning squad needs an emotional anchor, and you are undeniably ours. From the high-energy banter to the deep, honest 2:00 AM conversations about life and ambitions, having you in my life has been one of my greatest blessings.
+Bro is one of the best mallu baddies(buddy) out there. Love the way we yap over tech, and when it comes to automobiles you're the man. Though the NPTEL was a complete flop our lil car trip and the talk with the boys?? Peakkk.
 
-You face every hurdle with calm confidence and high spirits. May your next year be paved with smooth asphalt, 24k gold moments, and zero brake fade!`,
-    closingNote: 'With deepest respect and warmth, — Sathiya',
+Love that you have such a practical mind and also I genuinely appreciate your willingness to try new things and do things differently, even when it means going at it alone. It's not always easy, and I think it's pretty cool that you don't let that stop you.
+
+Also you're pretty much behind all the memories we get to look back on, so thanks for always capturing them. Have a solid year ahead, man!!`,
+    closingNote: 'Have a solid year ahead, — Sathiya',
     photos: [
       {
         id: 'f07-p1',
@@ -353,17 +357,17 @@ Cheers to another legendary lap around the sun!`,
     id: 'friend-09',
     friendNumber: 9,
     friendName: 'Rashmika',
-    chapterTitle: 'Chapter IX: The Chequered Flag Salute',
-    callsign: 'The Chequered Flag Finisher',
-    tagline: 'Rounding out the 9-squad salute.',
-    writtenMessage: `To Vaibhev on your special day!
+    chapterTitle: 'Chapter IX: The Pazhampori Chronicles',
+    callsign: 'Chief Ragebaiter',
+    tagline: 'Yooooo പഴംപൊരി! Welcome to the club.',
+    writtenMessage: `Yooooo പഴംപൊരി
 
-Closing out this 9-friend scrapbook with nothing but the deepest admiration and love for who you are. You inspire us, make us laugh till our ribs hurt, and set the standard for what authentic friendship looks like.
+welp first of all a very Happy Birthday (gramps) and welcome to the club!!
 
-Take a bow, celebrate like a true champion on the top step of the podium, and know that all nine of us will always be standing right beside you.
+Anyways you are one of the only mallu friends i have and ragebaiting ya w the weird names from the south of kerala has always been fun😁😁😁
 
-Happy Birthday, brother!`,
-    closingNote: 'Top step of the podium forever, — Rashmika',
+Anyways looking forward to more ragebaits hehe`,
+    closingNote: 'Looking forward to more ragebaits hehe, — Rashmika',
     photos: [
       {
         id: 'f09-p1',
