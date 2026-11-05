@@ -1,13 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import {
-  Compass,
   Image as ImageIcon,
   Play,
   Film,
   Sparkles,
-  Layers,
   ArrowLeft,
-  Filter,
   User,
   Clock,
   Tv,
@@ -15,9 +12,8 @@ import {
 import {
   getAllVaultVideos,
   getFeaturedVideo,
-  getVideoCategories,
 } from '../../data/videoData';
-import type { VideoCategory, VideoEntry } from '../../types/video';
+import type { VideoEntry } from '../../types/video';
 import { VideoCard } from './VideoCard';
 import { CinemaModal } from './CinemaModal';
 import { GoldButton } from '../common/GoldButton';
@@ -34,29 +30,10 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
   onNavigateToGallery,
 }) => {
   const { isClueDiscovered, discoverClue } = useTreasureHunt();
-  const [selectedCategory, setSelectedCategory] = useState<VideoCategory>('all');
   const [activeVideo, setActiveVideo] = useState<VideoEntry | null>(null);
 
-  const categories = useMemo(() => getVideoCategories(), []);
   const allVideos = useMemo(() => getAllVaultVideos(), []);
   const featuredVideo = useMemo(() => getFeaturedVideo(), []);
-
-  // Filtered video list
-  const filteredVideos = useMemo(() => {
-    if (selectedCategory === 'all') return allVideos;
-    return allVideos.filter((v) => v.category === selectedCategory);
-  }, [allVideos, selectedCategory]);
-
-  // Compute category counts
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: allVideos.length };
-    allVideos.forEach((video) => {
-      if (video.category) {
-        counts[video.category] = (counts[video.category] || 0) + 1;
-      }
-    });
-    return counts;
-  }, [allVideos]);
 
   const handleOpenVideo = (video: VideoEntry) => {
     soundFx.playUiClick();
@@ -65,11 +42,6 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
 
   const handleCloseModal = () => {
     setActiveVideo(null);
-  };
-
-  const handleCategorySelect = (catId: VideoCategory) => {
-    soundFx.playUiClick();
-    setSelectedCategory(catId);
   };
 
   return (
@@ -135,7 +107,7 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
 
           <p className="mt-4 text-sm sm:text-base text-gray-300 leading-relaxed max-w-3xl mx-auto">
             A private cinema screening room containing video tributes, motorsport soundbites,
-            heartfelt messages, and unfiltered 3:00 AM meme archives from all 9 friends.
+            heartfelt messages, and unfiltered meme archives from all 9 friends.
           </p>
 
           {/* Quick Telemetry Bar */}
@@ -145,17 +117,16 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
               <span className="text-white font-bold">{allVideos.length}</span> Transmissions
             </div>
             <div className="flex items-center gap-2">
-              <Layers className="w-4 h-4 text-red-500" />
-              <span className="text-white font-bold">{categories.length - 1}</span> Channels
+              <span className="text-gold-400 font-bold">Automatic Video Frame Preview</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-gold-400 font-bold">Local MP4 / WebM</span> Hosting
+              <span className="text-red-400 font-bold">Local MP4 / WebM</span> Hosting
             </div>
           </div>
         </div>
 
         {/* Large Featured Video Showcase */}
-        {featuredVideo && selectedCategory === 'all' && (
+        {featuredVideo && (
           <div className="mb-12 sm:mb-16">
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-gold-500/20">
               <div className="flex items-center gap-2">
@@ -180,18 +151,21 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
               <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-gold-400" />
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center">
-                {/* Left: Video Preview Poster / Slate */}
+                {/* Left: Video Preview from video source itself */}
                 <div className="lg:col-span-7 relative aspect-video rounded-xl overflow-hidden bg-black border border-white/10 group-hover:border-gold-500/50 transition-colors flex items-center justify-center shadow-2xl">
-                  {featuredVideo.posterUrl ? (
-                    <img
-                      src={featuredVideo.posterUrl}
-                      alt={featuredVideo.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      onError={(e) => {
-                        (e.target as HTMLElement).style.display = 'none';
-                      }}
+                  {featuredVideo.videoUrl && (
+                    <video
+                      src={
+                        featuredVideo.videoUrl.includes('#')
+                          ? featuredVideo.videoUrl
+                          : `${featuredVideo.videoUrl}#t=0.1`
+                      }
+                      preload="metadata"
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
                     />
-                  ) : null}
+                  )}
 
                   {/* Overlay Center Play Button */}
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
@@ -250,50 +224,10 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
           </div>
         )}
 
-        {/* Video Category Filter Tabs */}
-        <div className="mb-8 sm:mb-12">
-          <div className="flex items-center justify-center gap-2 pb-2">
-            <Filter className="w-4 h-4 text-gold-400/80" />
-            <span className="font-mono text-xs sm:text-sm text-gray-300 uppercase tracking-wider">
-              Filter Transmissions:
-            </span>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-2">
-            {categories.map((cat) => {
-              const isSelected = selectedCategory === cat.id;
-              const count = categoryCounts[cat.id] || 0;
-
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategorySelect(cat.id)}
-                  className={`group flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-mono transition-all duration-200 cursor-pointer ${
-                    isSelected
-                      ? 'bg-gradient-to-r from-red-600/30 to-amber-600/30 border border-gold-400 text-gold-300 shadow-[0_0_15px_rgba(212,175,55,0.25)]'
-                      : 'bg-obsidian-900/70 border border-white/[0.08] text-gray-400 hover:text-white hover:border-white/20'
-                  }`}
-                >
-                  <span>{cat.label}</span>
-                  <span
-                    className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-bold ${
-                      isSelected
-                        ? 'bg-gold-500/30 text-gold-200'
-                        : 'bg-white/10 text-gray-400 group-hover:text-white'
-                    }`}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Video Cards Grid */}
-        {filteredVideos.length > 0 ? (
+        {/* Video Cards Grid - all transmissions without category filter clutter */}
+        {allVideos.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredVideos.map((video) => (
+            {allVideos.map((video) => (
               <VideoCard
                 key={video.id}
                 video={video}
@@ -311,55 +245,20 @@ export const VideoVault: React.FC<VideoVaultProps> = ({
               No Transmissions Found
             </h3>
             <p className="text-xs text-gray-400 mt-2 font-mono">
-              No videos currently listed in this category. Place MP4 files into /public/media/videos/ to expand the archive.
+              Place MP4 files into /public/media/videos/ to expand the archive.
             </p>
-            <div className="mt-6">
-              <GoldButton
-                variant="gold-outline"
-                size="sm"
-                onClick={() => handleCategorySelect('all')}
-              >
-                VIEW ALL TRANSMISSIONS
-              </GoldButton>
-            </div>
           </div>
         )}
 
-        {/* Bottom Paddock Quick Return */}
-        <div className="mt-16 sm:mt-20 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-center sm:text-left">
-            <span className="font-mono text-xs text-red-500 block">
-              VAIBHEV'S BIRTHDAY GRAND PRIX • 2026
-            </span>
-            <span className="text-[11px] text-gray-400 font-mono">
-              Classified transmissions curated by the 9-Squad Syndicate.
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <GoldButton
-              variant="gold-outline"
-              size="md"
-              onClick={() => {
-                soundFx.playUiClick();
-                onReturnToPaddock();
-              }}
-              icon={<Compass className="w-4 h-4" />}
-            >
-              RETURN TO PADDOCK
-            </GoldButton>
-          </div>
-        </div>
+        {/* Cinema Screening Room Modal */}
+        {activeVideo && (
+          <CinemaModal
+            video={activeVideo}
+            isOpen={!!activeVideo}
+            onClose={handleCloseModal}
+          />
+        )}
       </div>
-
-      {/* Dedicated Cinema Screening Modal */}
-      {activeVideo && (
-        <CinemaModal
-          video={activeVideo}
-          isOpen={activeVideo !== null}
-          onClose={handleCloseModal}
-        />
-      )}
     </div>
   );
 };

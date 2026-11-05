@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Clock, User, Film, Tag } from 'lucide-react';
+import { Play, Clock, User, Film } from 'lucide-react';
 import type { VideoEntry } from '../../types/video';
 import { soundFx } from '../../utils/audioFx';
 
@@ -9,7 +9,14 @@ interface VideoCardProps {
 }
 
 export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
-  const [posterError, setPosterError] = useState<boolean>(false);
+  const [videoError, setVideoError] = useState<boolean>(false);
+
+  // Appending #t=0.1 prompts HTML5 video engines to fetch and render the first frame
+  const previewSource = video.videoUrl
+    ? video.videoUrl.includes('#')
+      ? video.videoUrl
+      : `${video.videoUrl}#t=0.1`
+    : '';
 
   return (
     <div
@@ -39,18 +46,19 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
         ))}
       </div>
 
-      {/* Video Poster Thumbnail Stage */}
+      {/* Video Preview Stage (Auto-renders first frame preview directly from the video file) */}
       <div className="relative w-full aspect-video bg-neutral-950 overflow-hidden flex items-center justify-center">
-        {video.posterUrl && !posterError ? (
-          <img
-            src={video.posterUrl}
-            alt={video.title}
-            loading="lazy"
-            onError={() => setPosterError(true)}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        {previewSource && !videoError ? (
+          <video
+            src={previewSource}
+            preload="metadata"
+            muted
+            playsInline
+            onError={() => setVideoError(true)}
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none"
           />
         ) : (
-          /* Graceful Cinema Slate Placeholder if thumbnail is pending upload */
+          /* Fallback Cinema Slate if video is pending upload */
           <div className="w-full h-full p-4 bg-gradient-to-br from-[#1a1714] via-[#0d0c0a] to-[#070605] flex flex-col justify-between items-center text-center">
             <div className="w-full flex justify-between items-center text-[10px] font-mono text-gray-400">
               <span className="text-red-400 font-bold uppercase">SCUDERIA MARANELLO</span>
@@ -80,14 +88,6 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
           <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded bg-black/80 border border-white/15 text-white font-mono text-xs backdrop-blur-xs">
             <Clock className="w-3.5 h-3.5 text-gold-400" />
             <span>{video.duration}</span>
-          </div>
-        )}
-
-        {/* Category Pill (Top Left) */}
-        {video.category && (
-          <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded bg-black/80 border border-gold-500/30 text-gold-300 font-mono text-[11px] sm:text-xs uppercase backdrop-blur-xs">
-            <Tag className="w-3 h-3 text-gold-400" />
-            <span>{video.category}</span>
           </div>
         )}
 
@@ -123,19 +123,15 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
           )}
         </div>
 
-        {/* Bottom Contributor Tag */}
-        <div className="mt-4 pt-3.5 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-gray-400">
-          {video.contributor ? (
-            <span className="flex items-center gap-1.5 text-gold-400/90 truncate">
-              <User className="w-3.5 h-3.5 text-gold-400" />
-              <span className="truncate">{video.contributor}</span>
-            </span>
-          ) : (
-            <span className="text-gray-400">Squad Transmission</span>
-          )}
+        {/* Contributor and Video Metadata Footer */}
+        <div className="pt-4 mt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono text-gray-400">
+          <div className="flex items-center gap-1.5 text-gold-400/90 truncate">
+            <User className="w-3.5 h-3.5 text-gold-400 shrink-0" />
+            <span className="truncate">{video.contributor || 'Syndicate Member'}</span>
+          </div>
 
-          <span className="text-red-400 group-hover:underline text-[11px] sm:text-xs uppercase font-bold shrink-0">
-            PLAY REEL →
+          <span className="text-[11px] uppercase tracking-wider text-gray-400 shrink-0">
+            {video.resolution || '1080p'}
           </span>
         </div>
       </div>
