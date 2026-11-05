@@ -12,19 +12,6 @@ interface PhotoCardProps {
 export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
   const [imageError, setImageError] = useState<boolean>(false);
 
-  // Aspect ratio helper classes
-  const getAspectRatioClass = () => {
-    switch (photo.aspectRatio) {
-      case 'portrait':
-        return 'aspect-[3/4]';
-      case 'square':
-        return 'aspect-square';
-      case 'landscape':
-      default:
-        return 'aspect-[4/3]';
-    }
-  };
-
   return (
     <div
       tabIndex={0}
@@ -41,29 +28,29 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
           onClick();
         }
       }}
-      className="group relative cursor-pointer overflow-hidden rounded-md border border-white/[0.12] bg-gradient-to-b from-[#19171d] via-[#141217] to-[#0f0e12] transition-all duration-300 hover:border-gold-500/50 hover:shadow-[0_8px_30px_rgba(212,175,55,0.18)] focus:outline-hidden focus:ring-2 focus:ring-gold-400 select-none break-inside-avoid mb-4 sm:mb-6"
+      className="group relative cursor-pointer overflow-hidden rounded-md border border-white/[0.12] bg-[#141217] transition-all duration-300 hover:border-gold-500/50 hover:shadow-[0_8px_30px_rgba(212,175,55,0.18)] focus:outline-hidden focus:ring-2 focus:ring-gold-400 select-none break-inside-avoid mb-4 sm:mb-6"
     >
       {/* Corner Accent (Ferrari Red on top left) */}
       <div className="absolute top-0 left-0 w-8 h-8 pointer-events-none z-10 overflow-hidden">
         <div className="w-12 h-1.5 -rotate-45 bg-gradient-to-r from-red-600 to-amber-500 transform -translate-x-3 translate-y-1 shadow-sm" />
       </div>
 
-      {/* Image Container with Aspect Ratio */}
-      <div className={`relative w-full ${getAspectRatioClass()} overflow-hidden bg-neutral-950 flex items-center justify-center`}>
+      {/* Image Container: adapts naturally to the image dimensions without harsh cropping */}
+      <div className="relative w-full overflow-hidden bg-[#141217] flex items-center justify-center">
         {!imageError ? (
           <img
             src={photo.imageUrl}
             alt={photo.title}
             loading="lazy"
             onError={() => setImageError(true)}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-auto max-h-[75vh] object-contain block transition-transform duration-700 ease-out group-hover:scale-[1.02]"
           />
         ) : (
           /* Fallback Placeholder Card */
-          <div className="w-full h-full p-4 sm:p-6 bg-gradient-to-br from-[#1a1714] via-[#0d0c0a] to-[#070605] flex flex-col justify-between items-center text-center">
+          <div className="w-full aspect-[4/3] p-4 sm:p-6 bg-gradient-to-br from-[#1a1714] via-[#0d0c0a] to-[#070605] flex flex-col justify-between items-center text-center">
             <div className="w-full flex justify-between items-center text-[10px] font-mono text-gray-400">
-              <span className="text-red-400 font-bold uppercase">FERRARI</span>
-              <span>{photo.aspectRatio?.toUpperCase() || 'FRAME'}</span>
+              <span className="text-red-400 font-bold uppercase">ARCHIVE</span>
+              <span>FRAME</span>
             </div>
 
             <div className="flex flex-col items-center my-auto">
@@ -85,7 +72,7 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
         )}
 
         {/* Hover Overlay with Metadata & Zoom Icon */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-3.5 sm:p-4 z-10">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-3.5 sm:p-4 z-10 pointer-events-none">
           {/* Top badges */}
           <div className="flex items-center justify-between">
             <span className="font-mono text-xs uppercase tracking-wider px-2.5 py-1 rounded-md bg-black/80 border border-gold-500/40 text-gold-300 backdrop-blur-xs flex items-center gap-1.5 font-bold">

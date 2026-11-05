@@ -5,8 +5,6 @@ import { getSessionShuffled } from '../utils/shuffle';
  * =========================================================================
  * EDITABLE GALLERY CATEGORIES
  * =========================================================================
- * The 9 friends can add, remove, or rename categories here.
- * Components read dynamically from this list.
  */
 export const GALLERY_CATEGORIES: readonly GalleryCategoryMeta[] = Object.freeze([
   {
@@ -42,18 +40,49 @@ export const GALLERY_CATEGORIES: readonly GalleryCategoryMeta[] = Object.freeze(
 ]);
 
 /**
- * =========================================================================
- * EDITABLE PHOTO ARCHIVE DATA
- * =========================================================================
- * HOW TO ADD A PHOTOGRAPH:
- * 1. Drop your image file into: /public/media/gallery/
- *    (e.g., /public/media/gallery/go-kart-race.jpg)
- * 2. Add an object to the GALLERY_PHOTOS array below.
- * 3. Save! No React code changes required.
- *
- * Aspect ratios supported: 'landscape' (4:3 / 16:9), 'portrait' (3:4), 'square' (1:1)
+ * Dynamic Vite Glob import:
+ * Automatically discovers ANY photo placed in /public/media/gallery/
+ * Supports all image formats: jpg, jpeg, png, webp, avif, gif, svg.
  */
-export const GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze([
+const dynamicGalleryFiles = import.meta.glob(
+  '/public/media/gallery/*.{jpg,jpeg,png,webp,avif,gif,svg,JPG,JPEG,PNG,WEBP,AVIF,GIF,SVG}',
+  { eager: true, query: '?url', import: 'default' }
+);
+
+function formatTitleFromFilename(filename: string): string {
+  // Strip extension and folder path
+  const base = filename.replace(/^.*[\\/]/, '').replace(/\.[^/.]+$/, '');
+  // Convert dashes / underscores to spaces and capitalize
+  return base
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+/**
+ * Automatically discovered photos from the /public/media/gallery folder.
+ */
+const autoDiscoveredPhotos: GalleryPhoto[] = Object.keys(dynamicGalleryFiles).map((path, idx) => {
+  // Vite dynamic glob url will be like "/media/gallery/photo-name.jpg"
+  const url = path.replace(/^\/public/, '');
+  const title = formatTitleFromFilename(path);
+  return {
+    id: `auto-gallery-${idx + 1}-${title.toLowerCase().replace(/\s+/g, '-')}`,
+    title: title || `Memory Frame ${idx + 1}`,
+    description: 'Captured moments with the squad.',
+    imageUrl: url,
+    category: 'squad-memories',
+    dateOrEvent: 'Squad Archive',
+    contributor: 'The Syndicate',
+    featured: idx < 3,
+    aspectRatio: 'landscape',
+    tags: ['Squad', 'Memory', 'Archive'],
+  };
+});
+
+/**
+ * Fallback predefined photos if the folder is empty.
+ */
+export const DEFAULT_GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze([
   {
     id: 'photo-01',
     title: 'The Scuderia Maranello Dream',
@@ -61,7 +90,7 @@ export const GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze([
     imageUrl: '/media/gallery/ferrari-sf90.jpg',
     category: 'cars-f1',
     dateOrEvent: 'Monza Grand Prix Weekend',
-    contributor: 'Kabir & Syndicate',
+    contributor: 'The Syndicate',
     featured: true,
     aspectRatio: 'landscape',
     tags: ['Ferrari', 'F1', 'Scuderia'],
@@ -73,7 +102,7 @@ export const GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze([
     imageUrl: '/media/gallery/squad-collective.jpg',
     category: 'squad-memories',
     dateOrEvent: 'Annual Squad Summit',
-    contributor: 'Aarav',
+    contributor: 'The Syndicate',
     featured: true,
     aspectRatio: 'landscape',
     tags: ['Squad', 'Brotherhood', '9Friends'],
@@ -85,120 +114,20 @@ export const GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze([
     imageUrl: '/media/gallery/hamilton-44.jpg',
     category: 'cars-f1',
     dateOrEvent: 'Silverstone Glory',
-    contributor: 'Siddharth',
+    contributor: 'The Syndicate',
     featured: true,
     aspectRatio: 'portrait',
     tags: ['LewisHamilton', 'HammerTime', 'GOAT'],
   },
-  {
-    id: 'photo-04',
-    title: 'Midnight Drive & Supercar Chases',
-    description: 'Exhaust notes vibrating through the quiet night streets.',
-    imageUrl: '/media/gallery/night-drive.jpg',
-    category: 'cars-f1',
-    dateOrEvent: 'Highway Night Run',
-    contributor: 'Arjun',
-    featured: false,
-    aspectRatio: 'portrait',
-    tags: ['NightDrive', 'ExhaustNote', 'V8'],
-  },
-  {
-    id: 'photo-05',
-    title: 'The Birthday Milestone Toast',
-    description: 'Raising a glass to the legend himself. Cheers to Vaibhev!',
-    imageUrl: '/media/gallery/birthday-toast.jpg',
-    category: 'celebrations',
-    dateOrEvent: 'Grand Birthday Eve',
-    contributor: 'Rohan',
-    featured: false,
-    aspectRatio: 'square',
-    tags: ['Birthday', 'Cheers', 'Celebration'],
-  },
-  {
-    id: 'photo-06',
-    title: '3:00 AM Groupchat Delirium',
-    description: 'Tung Tung Tung Sahur memes and inexplicable laughter at dawn.',
-    imageUrl: '/media/gallery/brainrot-chaos.jpg',
-    category: 'random-moments',
-    dateOrEvent: 'All-Nighter Discord Call',
-    contributor: 'Vikram',
-    featured: false,
-    aspectRatio: 'square',
-    tags: ['Brainrot', 'TungTungTung', 'Chaos'],
-  },
-  {
-    id: 'photo-07',
-    title: 'Go-Karting Grand Prix Podium',
-    description: 'Vaibhev taking P1 by two tenths of a second on the final corner.',
-    imageUrl: '/media/gallery/karting-podium.jpg',
-    category: 'celebrations',
-    dateOrEvent: 'Annual Kart Championship',
-    contributor: 'Dev',
-    featured: false,
-    aspectRatio: 'landscape',
-    tags: ['Karting', 'P1', 'Champion'],
-  },
-  {
-    id: 'photo-08',
-    title: 'Late Night Spontaneous Road Trip',
-    description: 'No destination, full fuel tank, and peak Spotify playlist.',
-    imageUrl: '/media/gallery/road-trip-sunset.jpg',
-    category: 'special-moments',
-    dateOrEvent: 'Weekend Escapade',
-    contributor: 'Aditya',
-    featured: false,
-    aspectRatio: 'portrait',
-    tags: ['RoadTrip', 'GoldenHour', 'Memories'],
-  },
-  {
-    id: 'photo-09',
-    title: 'The Spider-Man Stance',
-    description: 'Vaibhev attempting a full web-slinger pose on top of the car hood.',
-    imageUrl: '/media/gallery/spiderman-pose.jpg',
-    category: 'random-moments',
-    dateOrEvent: 'Parking Lot Shenanigans',
-    contributor: 'Nakul',
-    featured: false,
-    aspectRatio: 'square',
-    tags: ['SpiderMan', 'Marvel', 'WebSlinger'],
-  },
-  {
-    id: 'photo-10',
-    title: 'The Netherite Fortress Raid',
-    description: 'When the entire squad spent 6 continuous hours in the Nether.',
-    imageUrl: '/media/gallery/minecraft-raid.jpg',
-    category: 'special-moments',
-    dateOrEvent: 'Server Launch Night',
-    contributor: 'Aarav & Vikram',
-    featured: false,
-    aspectRatio: 'landscape',
-    tags: ['Minecraft', 'Netherite', 'SquadGaming'],
-  },
-  {
-    id: 'photo-11',
-    title: 'Unfiltered Candid Laughter',
-    description: 'The genuine smiles that happen when words aren\'t needed.',
-    imageUrl: '/media/gallery/candid-laughs.jpg',
-    category: 'squad-memories',
-    dateOrEvent: 'Diner Hangout',
-    contributor: 'Rohan',
-    featured: false,
-    aspectRatio: 'portrait',
-    tags: ['Candid', 'RealMoments', 'Brothers'],
-  },
-  {
-    id: 'photo-12',
-    title: 'Victory Lap Commemoration',
-    description: 'Another year of greatness in the books. Ready for the next season.',
-    imageUrl: '/media/gallery/victory-lap.jpg',
-    category: 'celebrations',
-    dateOrEvent: 'Season Finale',
-    contributor: 'The Syndicate',
-    featured: true,
-    aspectRatio: 'landscape',
-    tags: ['VictoryLap', 'Milestone', 'VaibhevDay'],
-  },
 ]);
+
+/**
+ * Active photo list: Uses auto-discovered photos from folder if any exist,
+ * otherwise falls back to defaults.
+ */
+export const GALLERY_PHOTOS: readonly GalleryPhoto[] = Object.freeze(
+  autoDiscoveredPhotos.length > 0 ? autoDiscoveredPhotos : DEFAULT_GALLERY_PHOTOS
+);
 
 export function getAllGalleryPhotos(): GalleryPhoto[] {
   return getSessionShuffled(GALLERY_PHOTOS, 'vaibhev_gallery_session_order');
