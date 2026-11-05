@@ -31,19 +31,27 @@ export const PolaroidPhoto: React.FC<PolaroidPhotoProps> = ({
     }
   };
 
+  // Derive aspect ratio class from the photo's aspectRatio hint
+  const frameAspect =
+    photo.aspectRatio === 'portrait'
+      ? 'aspect-[3/4]'
+      : photo.aspectRatio === 'square'
+        ? 'aspect-square'
+        : 'aspect-[4/3]'; // landscape (default)
+
   return (
     <div
       onClick={onClick}
       style={{ transform: `rotate(${rotation}deg)` }}
-      className="polaroid-card relative p-2.5 sm:p-3.5 pb-5 sm:pb-6 rounded shadow-lg cursor-pointer max-w-[280px] sm:max-w-[320px] mx-auto select-none group"
+      className="polaroid-card relative p-2.5 sm:p-3.5 pb-5 sm:pb-6 rounded shadow-lg cursor-pointer w-full mx-auto select-none group"
     >
       {/* Washi Tape Strip at top */}
       <div
         className={`absolute -top-2.5 left-1/2 -translate-x-1/2 w-16 sm:w-20 h-4 sm:h-5 ${getTapeClass()} rounded-xs z-10`}
       />
 
-      {/* Image Frame */}
-      <div className="relative w-full aspect-[4/3] bg-neutral-900 rounded-xs overflow-hidden flex items-center justify-center">
+      {/* Image Frame — aspect ratio adapts to portrait / square / landscape */}
+      <div className={`relative w-full ${frameAspect} bg-neutral-900 rounded-xs overflow-hidden flex items-center justify-center`}>
         {imageLoaded ? (
           <img
             src={photo.url}

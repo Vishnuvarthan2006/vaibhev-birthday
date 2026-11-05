@@ -365,20 +365,33 @@ export const PageFace: React.FC<PageFaceProps> = ({
 
         {entry.photos && entry.photos.length > 0 ? (
           <div
-            className={`py-1 ${
+            className={`py-1 overflow-y-auto max-h-[62vh] pr-1 ${
               entry.photos.length === 1
-                ? 'flex items-center justify-center min-h-[260px]'
-                : 'grid grid-cols-1 sm:grid-cols-2 gap-3.5 items-center justify-center'
+                ? 'flex items-center justify-center'
+                : entry.photos.length === 2
+                  ? 'grid grid-cols-2 gap-3 items-center'
+                  : entry.photos.length === 3
+                    ? 'grid grid-cols-2 gap-3 items-start'
+                    : 'grid grid-cols-2 gap-3 items-start'
             }`}
           >
             {entry.photos.map((photo: NotebookPhoto, pIdx: number) => (
-              <PolaroidPhoto
+              <div
                 key={photo.id || pIdx}
-                photo={photo}
-                index={pIdx}
-                accentStyle={entry.accentStyle}
-                onClick={() => onOpenPhoto?.(pIdx, entry)}
-              />
+                className={
+                  // For 3 photos: last one spans both columns and is centred
+                  entry.photos.length === 3 && pIdx === 2
+                    ? 'col-span-2 flex justify-center'
+                    : ''
+                }
+              >
+                <PolaroidPhoto
+                  photo={photo}
+                  index={pIdx}
+                  accentStyle={entry.accentStyle}
+                  onClick={() => onOpenPhoto?.(pIdx, entry)}
+                />
+              </div>
             ))}
           </div>
         ) : (
