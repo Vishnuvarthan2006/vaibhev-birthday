@@ -346,6 +346,16 @@ export const PageFace: React.FC<PageFaceProps> = ({
   }
 
   // Right Page: The Scrapbook Photos
+  // Compute max image height per photo based on how many photos must fit
+  // on a single page without scroll. More photos → smaller max height.
+  const photoCount = entry.photos?.length ?? 0;
+  const maxImgH =
+    photoCount === 1 ? '50vh' :
+    photoCount === 2 ? '38vh' :
+    photoCount === 3 ? '26vh' :
+    photoCount === 4 ? '22vh' :
+    photoCount <= 6  ? '18vh' : '15vh';
+
   return (
     <div className="w-full h-full paper-page book-spine-right p-5 sm:p-8 md:p-9 flex flex-col justify-between text-neutral-900 select-none relative overflow-hidden">
       <div className="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-gold-600/50" />
@@ -364,35 +374,39 @@ export const PageFace: React.FC<PageFaceProps> = ({
         </div>
 
         {entry.photos && entry.photos.length > 0 ? (
+          // No scroll — grid auto-sizes photos to fit all on one page
           <div
-            className={`py-1 overflow-y-auto max-h-[62vh] pr-1 ${
-              entry.photos.length === 1
-                ? 'flex items-center justify-center'
-                : entry.photos.length === 2
-                  ? 'grid grid-cols-2 gap-3 items-center'
-                  : entry.photos.length === 3
-                    ? 'grid grid-cols-2 gap-3 items-start'
-                    : 'grid grid-cols-2 gap-3 items-start'
+            className={`py-1 ${
+              photoCount === 1
+                ? 'flex justify-center'
+                : photoCount <= 4
+                  ? 'grid grid-cols-2 gap-2'
+                  : 'grid grid-cols-3 gap-2'
             }`}
           >
-            {entry.photos.map((photo: NotebookPhoto, pIdx: number) => (
-              <div
-                key={photo.id || pIdx}
-                className={
-                  // For 3 photos: last one spans both columns and is centred
-                  entry.photos.length === 3 && pIdx === 2
-                    ? 'col-span-2 flex justify-center'
-                    : ''
-                }
-              >
-                <PolaroidPhoto
-                  photo={photo}
-                  index={pIdx}
-                  accentStyle={entry.accentStyle}
-                  onClick={() => onOpenPhoto?.(pIdx, entry)}
-                />
-              </div>
-            ))}
+            {entry.photos.map((photo: NotebookPhoto, pIdx: number) => {
+              const isLastOfThree = photoCount === 3 && pIdx === 2;
+              return (
+                <div
+                  key={photo.id || pIdx}
+                  className={isLastOfThree ? 'col-span-2 flex justify-center' : ''}
+                >
+                  <div className={
+                    photoCount === 1 ? 'w-full max-w-[240px]' :
+                    isLastOfThree    ? 'w-1/2' :
+                    'w-full'
+                  }>
+                    <PolaroidPhoto
+                      photo={photo}
+                      index={pIdx}
+                      accentStyle={entry.accentStyle}
+                      maxImgH={maxImgH}
+                      onClick={() => onOpenPhoto?.(pIdx, entry)}
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         ) : (
           <div className="min-h-[260px] flex flex-col items-center justify-center p-5 text-center rounded-lg border-2 border-dashed border-neutral-300 bg-neutral-100/60 my-3">

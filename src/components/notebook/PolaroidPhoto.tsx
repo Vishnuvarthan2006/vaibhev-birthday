@@ -7,6 +7,8 @@ interface PolaroidPhotoProps {
   accentStyle?: 'gold' | 'ferrari-red' | 'carbon' | 'spider-crimson';
   onClick?: () => void;
   index?: number;
+  /** Max height of the image (e.g. '220px' or '32vh'). Controls size without cropping. */
+  maxImgH?: string;
 }
 
 export const PolaroidPhoto: React.FC<PolaroidPhotoProps> = ({
@@ -14,6 +16,7 @@ export const PolaroidPhoto: React.FC<PolaroidPhotoProps> = ({
   accentStyle = 'gold',
   onClick,
   index = 0,
+  maxImgH = '200px',
 }) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(true);
   const rotation = photo.rotationDeg ?? (index % 2 === 0 ? -2 : 2.5);
@@ -31,44 +34,44 @@ export const PolaroidPhoto: React.FC<PolaroidPhotoProps> = ({
     }
   };
 
-  // Derive aspect ratio class from the photo's aspectRatio hint
-  const frameAspect =
-    photo.aspectRatio === 'portrait'
-      ? 'aspect-[3/4]'
-      : photo.aspectRatio === 'square'
-        ? 'aspect-square'
-        : 'aspect-[4/3]'; // landscape (default)
-
   return (
     <div
       onClick={onClick}
       style={{ transform: `rotate(${rotation}deg)` }}
-      className="polaroid-card relative p-2.5 sm:p-3.5 pb-5 sm:pb-6 rounded shadow-lg cursor-pointer w-full mx-auto select-none group"
+      className="polaroid-card relative p-2 sm:p-2.5 pb-5 sm:pb-6 rounded shadow-lg cursor-pointer w-full mx-auto select-none group"
     >
       {/* Washi Tape Strip at top */}
       <div
-        className={`absolute -top-2.5 left-1/2 -translate-x-1/2 w-16 sm:w-20 h-4 sm:h-5 ${getTapeClass()} rounded-xs z-10`}
+        className={`absolute -top-2.5 left-1/2 -translate-x-1/2 w-14 sm:w-16 h-4 ${getTapeClass()} rounded-xs z-10`}
       />
 
-      {/* Image Frame — aspect ratio adapts to portrait / square / landscape */}
-      <div className={`relative w-full ${frameAspect} bg-neutral-900 rounded-xs overflow-hidden flex items-center justify-center`}>
+      {/*
+        Image Frame:
+        - No fixed aspect ratio → frame wraps the actual image shape
+        - bg-[#f7f2e9] is a warm paper tone — shows as letterbox if image
+          is capped by maxImgH, replacing the previous black box
+        - object-contain prevents any cropping
+        - w-full h-auto = natural proportions; maxImgH caps height for page fit
+      */}
+      <div className="relative w-full overflow-hidden rounded-xs bg-[#f7f2e9]">
         {imageLoaded ? (
           <img
             src={photo.url}
             alt={photo.caption || 'Scrapbook memory'}
             onError={() => setImageLoaded(false)}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            style={{ maxHeight: maxImgH }}
+            className="w-full h-auto block object-contain transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          /* Elegant placeholder if friend hasn't placed their image file yet */
-          <div className="w-full h-full bg-gradient-to-br from-[#1a1714] to-[#0d0c0a] border border-gold-500/20 p-4 flex flex-col items-center justify-center text-center">
-            <div className="w-9 h-9 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 mb-2">
+          /* Placeholder shown when the image file hasn't been placed yet */
+          <div className="w-full aspect-[4/3] bg-neutral-100 border border-dashed border-neutral-300 p-3 flex flex-col items-center justify-center text-center">
+            <div className="w-8 h-8 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-500 mb-2">
               <Camera className="w-4 h-4" />
             </div>
-            <span className="font-display text-white text-xs font-semibold">
+            <span className="font-display text-neutral-600 text-xs font-semibold">
               Photo Slot Ready
             </span>
-            <span className="font-mono text-[9px] text-gold-400/80 mt-1 max-w-[190px] truncate">
+            <span className="font-mono text-[9px] text-gold-600/80 mt-1 max-w-[160px] truncate">
               {photo.url}
             </span>
           </div>
@@ -83,8 +86,8 @@ export const PolaroidPhoto: React.FC<PolaroidPhotoProps> = ({
       </div>
 
       {/* Handwritten Caption */}
-      <div className="mt-2.5 px-1 text-center min-h-[28px] flex items-center justify-center">
-        <p className="font-handwriting text-lg sm:text-xl text-neutral-800 leading-tight">
+      <div className="mt-1.5 px-1 text-center flex items-center justify-center">
+        <p className="font-handwriting text-base sm:text-lg text-neutral-800 leading-tight">
           {photo.caption || 'Unforgettable memory'}
         </p>
       </div>
