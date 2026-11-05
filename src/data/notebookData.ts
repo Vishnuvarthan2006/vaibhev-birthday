@@ -155,6 +155,13 @@ May your upcoming year be packed with diamonds, rare loot, and flawless builds i
         rotationDeg: 2,
         aspectRatio: 'landscape',
       },
+      {
+        id: 'f04-p2',
+        url: '/media/notebook/friend-04/photo-2.jpg',
+        caption: 'Netherite tier memories',
+        rotationDeg: -2,
+        aspectRatio: 'landscape',
+      },
     ],
     accentStyle: 'carbon',
     stickerBadge: 'NETHERITE TIER',
