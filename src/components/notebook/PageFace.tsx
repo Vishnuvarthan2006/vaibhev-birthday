@@ -350,7 +350,7 @@ export const PageFace: React.FC<PageFaceProps> = ({
   // on a single page without scroll. More photos → smaller max height.
   const photoCount = entry.photos?.length ?? 0;
   const maxImgH =
-    photoCount === 1 ? '50vh' :
+    photoCount === 1 ? '58vh' :
     photoCount === 2 ? '38vh' :
     photoCount === 3 ? '26vh' :
     photoCount === 4 ? '22vh' :
@@ -392,7 +392,7 @@ export const PageFace: React.FC<PageFaceProps> = ({
                   className={isLastOfThree ? 'col-span-2 flex justify-center' : ''}
                 >
                   <div className={
-                    photoCount === 1 ? 'w-full max-w-[240px]' :
+                    photoCount === 1 ? 'w-full max-w-[360px] sm:max-w-[420px]' :
                     isLastOfThree    ? 'w-1/2' :
                     'w-full'
                   }>
