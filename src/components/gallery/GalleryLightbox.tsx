@@ -150,6 +150,20 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
 
       {/* Main Image Stage */}
       <div className="relative flex-1 flex items-center justify-center p-4 sm:p-8 overflow-hidden">
+        {/* Floating Back Button directly on the image stage */}
+        <button
+          onClick={() => {
+            soundFx.playUiClick();
+            onClose();
+          }}
+          title="Back to Photo Archive"
+          aria-label="Back to Photo Archive"
+          className="absolute top-4 left-4 z-30 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/75 hover:bg-black/90 border border-gold-400/70 text-gold-300 hover:text-white shadow-[0_4px_20px_rgba(0,0,0,0.8)] backdrop-blur-md transition-all cursor-pointer font-mono text-xs font-bold tracking-wider hover:scale-105"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span>BACK TO ARCHIVE</span>
+        </button>
+
         {/* Previous Button */}
         <button
           onClick={() => {
