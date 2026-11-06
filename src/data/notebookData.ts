@@ -112,17 +112,13 @@ Anywayss, HAPPIEST BDAY!! You're old now as well... prolly, you'd be the only pe
     id: 'friend-03',
     friendNumber: 3,
     friendName: 'Akshaya',
-    chapterTitle: 'Chapter III: Multiverse Coordinates',
+    chapterTitle: 'Chapter III: DBMS Lab Dream Cars',
     callsign: 'Friendly Neighborhood Spider-Ally',
-    tagline: 'With great horsepower comes great celebration.',
-    writtenMessage: `To the one and only Vaibhev,
+    tagline: 'Vyaibe ramm namaskaramm!',
+    writtenMessage: `Vyaibe ramm namaskaramm...it's ur 20th birthday..I wish u get that costliest car ever in future ..(that one car which u were seeing on dbms lab)😂😂 a real car ok...not the small toy..
 
-If Peter Parker drove a Ferrari SF90 and had an immaculate obsession with hypercars, that would literally be you. Thank you for always being the most reliable person in the multiverse to web-sling through life's chaos with.
-
-From the random deep talks to the uncontrollable laughs, having you in the squad makes every single day feel cinematic. You possess that genuine superhero trait of lifting everyone around you up.
-
-Wishing you endless health, epic adventures, and a year that feels like an IMAX climax. You deserve nothing less!`,
-    closingNote: 'Your friendly neighborhood ally, — Akshaya',
+Enjoy your day...`,
+    closingNote: 'Enjoy your day, — Akshaya',
     photos: [
       {
         id: 'f03-p1',
@@ -185,31 +181,31 @@ Let us make more fun memories together and stay in touch even after college ends
     id: 'friend-05',
     friendNumber: 5,
     friendName: 'Sanjitha',
-    chapterTitle: 'Chapter V: The Tung Tung Tung Symphony',
-    callsign: 'The Tung Tung Tung Commander',
-    tagline: 'Wake up! Tung Tung Tung Sahur energy all day.',
-    writtenMessage: `Yo Vaibhev!
+    chapterTitle: 'Chapter V: The Camera & Kerala Food Debates',
+    callsign: 'The Kerala Food Debater',
+    tagline: 'Welcome to the 20 club!',
+    writtenMessage: `Hey,
 
-If there's anyone who can appreciate ultra-luxury automotive engineering right alongside the highest tier of brainrot comedy, it is 100% you. TUNG TUNG TUNG SAHUR!
+The first memory that I have of you is always with your Camara . Still remember the I was arguing with you and Rashmika abt kerala food 🙃.
 
-Never lose your incredible sense of humor and that infectious laugh that can rescue any gloomy day. The squad groupchat would be dead without your daily commentary.
+We don't share many pictures cause my most cherished memories were captured by you . You will always be our photoboi ..
 
-May your year be completely free of brain rot and packed with massive personal wins!`,
-    closingNote: 'Sahur alarm permanently set, — Sanjitha',
+Many more happy return of the day ans Welocme to the 20 club ..😁`,
+    closingNote: 'Welcome to the 20 club ..😁, — Sanjitha',
     photos: [
       {
         id: 'f05-p1',
         url: '/media/notebook/friend-05/photo-1.jpg',
-        caption: 'Peak comedic timing captured',
-        rotationDeg: -2.5,
-        aspectRatio: 'square',
+        caption: 'Cherished memories captured',
+        rotationDeg: -2,
+        aspectRatio: 'portrait',
       },
       {
         id: 'f05-p2',
         url: '/media/notebook/friend-05/photo-2.jpg',
-        caption: 'The meme archive chronicles',
+        caption: 'Always our photoboi',
         rotationDeg: 2,
-        aspectRatio: 'portrait',
+        aspectRatio: 'landscape',
       },
     ],
     accentStyle: 'gold',
