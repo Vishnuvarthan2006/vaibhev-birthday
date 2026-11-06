@@ -30,14 +30,10 @@ export const NOTEBOOK_ENTRIES: readonly NotebookEntry[] = Object.freeze([
     chapterTitle: 'Chapter I: The Telemetry of Loyalty',
     callsign: 'Pit Wall Strategist',
     tagline: 'Box, box, box for the ultimate birthday lap.',
-    writtenMessage: `Happy Birthday, Vaibhev!
+    writtenMessage: `Happie Birthday vaibhev!!!, Have a great year ahead.
 
-Another year older, another pole position in the grand prix of life. From obsessing over every Ferrari pitstop strategy to debating qualifying sectors and high-revving V10 engine notes, there's nobody else I'd rather analyze the telemetry with.
-
-You bring a relentless energy and dedication to everything you touch. Whether we're tackling real-life challenges or just having late-night debates, your loyalty as a friend never wavers.
-
-May this year bring you absolute P1 speed, zero mechanical penalties, and unlimited horsepower in everything you aim for. Keep pushing the limits!`,
-    closingNote: 'Always in your corner on the pit wall, — Vishnu',
+You are a great photographer man🫡 , dedication is also 🔥. Continue to be great mann`,
+    closingNote: 'Continue to be great mann, — Vishnu',
     photos: [
       {
         id: 'f01-p1',
@@ -309,17 +305,17 @@ Also you're pretty much behind all the memories we get to look back on, so thank
     id: 'friend-08',
     friendNumber: 8,
     friendName: 'Thiru',
-    chapterTitle: 'Chapter VIII: The Maranello Dreamers',
+    chapterTitle: 'Chapter VIII: Physics Lab to 708 Squad',
     callsign: 'The Garage Curator',
-    tagline: 'From Maranello with respect.',
-    writtenMessage: `Happy Birthday, Vaibhev!
+    tagline: 'From physics lab in 708 to the whole squad.',
+    writtenMessage: `Hey Broooo Happy Birthdayyyy, I wanted to tell you something, do you remember the first day i meet you in college it was a Tuesday 30th July '24, we had a conversion in physics lab. While speaking first I thought you as an north Indian and fully i spoke to you in English and we exchanged contacts.
 
-They say you can tell everything about someone by the machines they admire and the friends they keep close. You have immaculate taste in both.
+Then from the next day onwards I was sitting with you only in the class 2nd column and 3rd row or 4th row bench based on the availability. Actually at the starting in college i didn't start to speak out with people the environment was new for me, once I met you only I started gradually to speak to everyone.
 
-May this year take you one step closer to parking that dream Prancing Horse in your real-life garage. Thank you for the laughs, the late-night road trips, and the unwavering brotherhood.
+Then we went to the hackathon homify formed apporam then we gradually formed a group of 10, then we now are big friends group. The next day after I met you I asked you are you and north indian and you started to speak in tamil and I was like bro you know Tamil, and you and me laughed out.
 
-Cheers to another legendary lap around the sun!`,
-    closingNote: 'Forza sempre, — Thiru',
+Whatever it is bro, you are my 1st person I spoke in 708 and you are my 1st best friend I got in college 😊. Happyyyyy 20th Birthdayyyyyy 🥳🥳🥳🎉🎉🎂🎂✨✨, i wish you the year ahead to go great for u.`,
+    closingNote: 'Your 1st best friend in college, — Thiru',
     photos: [
       {
         id: 'f08-p1',

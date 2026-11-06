@@ -87,6 +87,14 @@ export const VIDEO_VAULT_ENTRIES: readonly VideoEntry[] = Object.freeze([   {
     contributor: 'Thiru'
   },
   {
+    id: 'video-savi',
+    title: 'Birthday Wish from Savitha',
+    description: 'Grand Prix wishes and telemetry breakdown for Vaibhev.',
+    videoUrl: '/media/videos/savi-bday.mp4', // <-- Match your filenam  e here
+    duration: '  00:04',
+    contributor: 'Savi'
+  },
+  {
     id: 'video-sandy',
     title: 'Birthday Wish from Santhosh',
     description: 'Grand Prix wishes and telemetry breakdown for Vaibhev.',
